@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Detalles de Archivo    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Detalles_____Prueba de lectura de campo: {{this.archivo.id}} / {{this.archivo.complaint_user_id}} / {{this.archivo.descripcion}} / {{this.archivo.archivo}}</p>
+
+  <form (submit)="dopatchArchivo()">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>{{ 'DESCRIPCION' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="this.archivo.descripcion" name="descripcion" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>{{ 'ARCHIVO' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="this.archivo.archivo" name="archivo" ></ion-input>
+      </ion-item>
+      <div padding>
+        <button ion-button color="primary" block>{{ 'GUARDAR' | translate }}</button>
+      </div>
+    </ion-list>
+  </form>
+
+  <!--button ion-button (click)="irAArchivos()" class="button">Archivos</button-->
+
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Historial de Quejas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Historial_____Prueba de lectura de campo: {{this.usuarioActual.id}} / {{this.usuarioActual.email}} / {{this.usuarioActual.token}}</p>
+
+  <ion-list>
+    <ion-item *ngFor="let queja of quejas">
+      <p>IdRegistro: {{queja.id}}, IDQueja: {{queja.complaint.descripcion}}, NombreQueja: {{queja.complaint.descripcion}}, FechaInicio: {{queja.fechainicio}}, FechaFin: {{queja.fechafin}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

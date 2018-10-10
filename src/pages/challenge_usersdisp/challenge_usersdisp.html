@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Retos Disponibles    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Disponibles_____Prueba de lectura de campo: {{this.usuarioActual.id}} / {{this.usuarioActual.email}} / {{this.usuarioActual.token}}</p>
+
+  <ion-list>
+    <ion-item *ngFor="let reto of retos">
+      <p>IDreto: {{reto.id}}, DescripciónReto: {{reto.descripcion}}</p>
+      <button ion-button (click)="dopostInsReto(reto.id)" class="button">InscribirRetos</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

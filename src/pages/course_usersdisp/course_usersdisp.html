@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Cursos Disponibles    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Disponibles_____Prueba de lectura de campo: {{this.usuarioActual.id}} / {{this.usuarioActual.email}} / {{this.usuarioActual.token}}</p>
+
+  <ion-list>
+    <ion-item *ngFor="let curso of cursos">
+      <p>IDCurso: {{curso.id}}, NombreCurso: {{curso.nombre}}
+      <button ion-button (click)="dopostInsCurso(curso.id)" class="button">InscribirCurso</button>
+      </p>
+    </ion-item>
+  </ion-list>
+</ion-content>

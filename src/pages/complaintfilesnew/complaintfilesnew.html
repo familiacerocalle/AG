@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Nuevo Archivo de Queja    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--p>Detalles_____Prueba de lectura de campo: {{this.usuarioActual.id}} / {{this.usuarioActual.email}} / {{this.usuarioActual.token}}</p-->
+  <!--p>Detalles_____Prueba de lectura de campo: {{this.quejas.id}} / {{this.quejas.complaint_id}} / {{this.quejas.user_id}} / {{this.quejas.direccion}} / {{this.quejas.comentarios}}</p-->
+  <!--p>NuevaQueja_____Prueba de lectura de campo: {{this.queja.id}} / {{this.queja.complaint_id}} / {{this.queja.user_id}} / {{this.queja.direccion}} / {{this.queja.comentarios}}</p-->
+
+  <form (submit)="dopostArchivo()">
+    <ion-list>
+      <!--
+      <ion-item>
+        <ion-label fixed>{{ 'COMPLAINTID' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="this.queja.complaint_id" name="complaint_id" ></ion-input>
+      </ion-item>
+      -->
+
+      <ion-item>
+        <ion-label fixed>{{ 'DESCRIPCION' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="this.archivo.descripcion" name="descripcion" ></ion-input>
+      </ion-item>
+      <!--
+      <ion-item>
+        <ion-label fixed>{{ 'ARCHIVO' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="this.archivo.archivo" name="archivo" ></ion-input>
+      </ion-item>
+    -->
+      <div padding>
+        <button ion-button color="primary" block>{{ 'GUARDAR' | translate }}</button>
+      </div>
+    </ion-list>
+  </form>
+
+</ion-content>
