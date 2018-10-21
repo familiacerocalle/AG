@@ -14,6 +14,10 @@ import {ChallengeListPage} from "../pages/challenge-list/challenge-list";
 import {LoginPage} from "../pages/login/login";
 import {SignupPage} from "../pages/signup/signup";
 import {ShWeb} from "../providers/sh-web/sh_web";
+import {HttpModule} from "@angular/http";
+import {IonicStorageModule} from "@ionic/storage";
+import {HttpClientModule} from "@angular/common/http";
+import {ShDbStorage} from "../providers/sh-web/sh_db";
 
 @NgModule({
     declarations: [
@@ -29,7 +33,13 @@ import {ShWeb} from "../providers/sh-web/sh_web";
     ],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(MyApp)
+        HttpModule,
+        HttpClientModule,
+        IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot({
+            name: 'gryphus',
+            driverOrder: ['sqlite', 'indexeddb', 'websql']
+        })
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -47,6 +57,7 @@ import {ShWeb} from "../providers/sh-web/sh_web";
         StatusBar,
         SplashScreen,
         ShWeb,
+        ShDbStorage,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })

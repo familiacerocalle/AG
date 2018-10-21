@@ -4,15 +4,63 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
 
-    <ion-navbar>
-        <ion-title>login</ion-title>
-    </ion-navbar>
+<ion-content class="text-center background_bg">
+    <ion-grid class="responsiveWidth">
 
-</ion-header>
+        <ion-row>
+            <ion-col col-12>
+                <img height="100px" width="100px" src="./assets/imgs/logo.png">
+                <p class="primary-color">Course login</p>
+            </ion-col>
+        </ion-row>
+        <br>
+        <ion-row>
+            <ion-col col-12>
+                <ion-input autofocus [(ngModel)]="userLogin.user_login_user.email"
+                           placeholder="Email"
+                           clearInput type="email"></ion-input>
+            </ion-col>
+        </ion-row>
 
+        <ion-row>
+            <ion-col col-12>
+                <ion-input [(ngModel)]="userLogin.user_login_user.password"
+                           placeholder="Password"
+                           type="password"></ion-input>
 
-<ion-content padding>
+            </ion-col>
+        </ion-row>
 
+    </ion-grid>
+
+    <br>
+
+    <ion-grid>
+
+        <ion-row>
+            <ion-col col-12 class="text-center">
+                <button round class="orange-bg light-color" ion-button (click)="onlineLogin()">
+                    Login
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <!--<ion-row>-->
+        <!--<ion-col col-12 class="text-right">-->
+        <!--<button class="font-i grey-text" clear ion-button (click)="goToForgotPassword()">-->
+        <!--Forgot password ?-->
+        <!--</button>-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <ion-row>
+            <ion-col col-12 class="text-center">
+                <button round ion-button (click)="signUpPage()">
+                    Register
+                </button>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
 </ion-content>

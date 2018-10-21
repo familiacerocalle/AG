@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +13,354 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+$primary: #00a55b;
+$secondary: #488aff;
+$danger: #f53d3d;
+$light: #fefefe;
+$dark: #2e2e2e;
+$tertiary: #FFC900;
+$gray: #A7A7A7;
+
+//----------------------- Generic --------------------- //
+.underline {
+  border-bottom: 3px solid !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.wrap-word {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-wrap {
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.upper {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+
+}
+
+.wide-as-needed {
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.font-0-6 {
+  font-size: .6em;
+}
+
+.font-0-8 {
+  font-size: .8em;
+}
+
+.font-1 {
+  font-size: 1em;
+}
+
+.font-1-2 {
+  font-size: 1.2em;
+}
+
+.font-1-5 {
+  font-size: 1.5em;
+}
+
+.font-2 {
+  font-size: 2em;
+}
+
+.font-3 {
+  font-size: 3em;
+}
+
+.font-4 {
+  font-size: 4em;
+}
+
+.font-5 {
+  font-size: 5em;
+}
+
+.font-i {
+  font-style: italic;
+}
+
+.font-b {
+  font-weight: bold;
+}
+
+.sh-border {
+  border-style: solid;
+  border-width: .5px .5px .5px .5px;
+}
+
+.top-border {
+  border-top-style: solid;
+  border-top-width: .5px;
+}
+
+.head-height {
+  line-height: 35px;
+}
+
+.float-right {
+  float: right;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.capital {
+  text-transform: uppercase;
+}
+
+.icon-font {
+  font-size: 20px !important;
+  text-align: center;
+}
+
+.padding0 {
+  padding: 0 !important;
+}
+
+.padding5 {
+  padding: 5px !important;
+}
+
+.margin0 {
+  margin: 0 !important;
+}
+
+.scroll-x-wrapper {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-x-content {
+  position: absolute;
+}
+
+.padding-top-20 {
+  padding-top: 20px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.responsiveWidth {
+  @media only screen and (orientation: landscape) {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+ion-content {
+  background-color: $light !important;
+  color: $dark !important;
+}
+
+ion-datetime {
+  color: $dark !important;
+}
+
+button {
+  //text-transform: capitalize !important;
+}
+
+ion-item {
+  color: $dark;
+  background: transparent !important;
+  //border: .5px solid $gray !important;
+  //border-radius: 15px !important;
+}
+
+ion-select {
+  max-width: 100% !important;
+  border: .5px solid $gray !important;
+  border-radius: 15px !important;
+}
+
+.bg-grey {
+  background-color: lightgray;
+}
+
+.round-card {
+  border-radius: 15px;
+  background-color: lightgray;
+  color: black;
+}
+
+.border-bd {
+  border: .5px solid $gray !important;
+  border-radius: 15px;
+}
+
+.border-bd-bottom {
+  border-bottom: .5px solid $gray !important;
+}
+
+.white-border {
+  border: .2px solid $dark !important;
+  padding: 8px;
+}
+
+.text-input {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  font-size: 1.1em;
+  background: transparent !important;
+  border: solid .5px $gray;
+  border-radius: 15px;
+  color: $dark !important;
+}
+
+.dark-bg-color {
+  background-color: $dark;
+  color: $light;
+}
+
+.primary-bg-color {
+  background-color: $primary !important;
+  color: $light;
+}
+
+.col {
+  padding: 0 !important;
+}
+
+.tertiary-bg-color {
+  background-color: $tertiary !important;
+  color: $light !important;
+}
+
+.secondary-bg-color {
+  background-color: $secondary !important;
+  color: $light;
+}
+
+.light-yellow-bg {
+  background-color: #FEFFDC;
+}
+
+.danger-bg-color {
+  background-color: $danger !important;
+  color: $light;
+}
+
+.light-color {
+  color: $light !important;
+}
+
+.light-bg-color {
+  background-color: $light !important;
+  color: $dark !important;
+}
+
+.primary-color {
+  color: $primary !important;
+}
+
+.transparent-bg-color {
+  background-color: transparent !important;
+}
+
+.dark-color {
+  color: $dark;
+}
+
+.completer-holder {
+  width: 100% !important;
+  padding: 5px !important;
+}
+
+.completer-input {
+  width: 100% !important;
+  padding: 10px !important;
+  font-size: 1.2em;
+  background-color: $light;
+  color: $dark !important;
+  border: .5px solid $gray !important;
+  border-radius: 15px !important;
+}
+
+.completer-dropdown {
+  width: 100% !important;
+  padding: 15px !important;
+}
+
+.completer-dropdown-holder {
+  width: 100% !important;
+  padding: 5px !important;
+}
+
+.completer-searching {
+  width: 100% !important;
+  padding: 5px !important;
+}
+
+.pink-bg {
+  background-color: #B30089;
+  color: $light;
+}
+
+.orange-bg {
+  background-color: #FC5D3A;
+  color: $light;
+}
+
+/* Portrait */
+@media screen and (orientation: portrait) {
+  .landscapePage {
+    display: none;
+  }
+}
+
+/* Landscape */
+@media screen and (orientation: landscape) {
+  .portraitPage {
+    display: none;
+  }
+}
+
+.background_bg {
+  //background: url("../assets/imgs/bg_tricolor.jpg");
+}
+
