@@ -68,7 +68,7 @@
 
                     <ion-row>
                         <ion-col col-12>
-                            <button ion-button [block]="true" (click)="register(challenge.id)">Register</button>
+                            <button ion-button [block]="true" (click)="register(challenge)">Register</button>
                         </ion-col>
                     </ion-row>
                 </ion-card-content>
@@ -77,10 +77,30 @@
 
         </ion-col>
     </ion-row>
-    <ion-row *ngIf="currentSelection!='Available'">
-        <ion-col col-6 col-md-12 *ngFor="let challengeUser of challengeUserList">
-            {{challengeUser.fechainicio}}-<span
-                *ngIf="challengeUser.challenge!=null">{{challengeUser.challenge.nombre}}</span>
+    <ion-row *ngIf="currentSelection!='Available' && challengeUserList!=null">
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challengeUser of challengeUserList">
+            <ion-card class="text-center">
+                <ion-card-header><h1>{{challengeUser.challenge.nombre}}</h1></ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-12><img src="./assets/imgs/challenge.jpg"/></ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-12>{{challengeUser.challenge.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row *ngIf="currentSelection=='Registered'">
+                        <ion-col col-12>
+                            <button ion-button [block]="true"
+                                    (click)="complete(challengeUser.id, challengeUser.challenge)">
+                                Complete
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
         </ion-col>
     </ion-row>
 </ion-content>

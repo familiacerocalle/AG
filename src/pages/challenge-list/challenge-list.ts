@@ -4,6 +4,7 @@ import {ShWeb} from "../../providers/sh-web/sh_web";
 import {User} from "../../providers/models/User";
 import {Challenge} from "../../providers/models/Challenge";
 import {ChallengeUser} from "../../providers/models/ChallengeUser";
+import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 
 /**
  * Generated class for the ChallengeListPage page.
@@ -19,15 +20,14 @@ import {ChallengeUser} from "../../providers/models/ChallengeUser";
     providers: [ShWeb]
 })
 export class ChallengeListPage {
-
     challengeList: Challenge[] = [];
     currentSelection: string = "Available";
     challengeUserList: ChallengeUser[] = [];
     user: User;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
+        console.log("token : " + StaticConstantsService.auth);
         this.user = this.navParams.get("user");
-        console.log("userLogin : " + JSON.stringify(this.user));
         this.changeSelection("Available")
     }
 
@@ -55,6 +55,7 @@ export class ChallengeListPage {
 
     getCompleted() {
         this.shWeb.get("challenge_users/show_hist?id=" + this.user.id).then((data: ChallengeUser[]) => {
+            console.log("completed challenge user : " + JSON.stringify(data));
             this.challengeUserList = data;
 
         });
@@ -62,28 +63,27 @@ export class ChallengeListPage {
 
     getRegistered() {
         this.shWeb.get("challenge_users/show_act?id=" + this.user.id).then((data: ChallengeUser[]) => {
+            console.log("registered challenge user : " + JSON.stringify(data));
             this.challengeUserList = data;
         });
     }
 
 
-    register(challengeId: number) {
-        let challengeUser: ChallengeUser = new ChallengeUser();
-        challengeUser.challenge_id = challengeId;
-        challengeUser.user_id = this.user.id;
-        this.shWeb.post("challenge_users/inscribircurso", challengeUser).then((data: ChallengeUser[]) => {
-            this.challengeUserList = data;
+    register(challenge: Challenge) {
+        let challengeUser: any = {};
+        challengeUser.challengeid = challenge.id;
+        challengeUser.userid = this.user.id;
+        this.shWeb.post("challenge_users/inscribirreto", challengeUser).then((data: ChallengeUser) => {
+            this.changeSelection("Registered");
         });
     }
 
 
-    complete(challengeId: number) {
-        let challengeUser: ChallengeUser = new ChallengeUser();
-        challengeUser.challenge_id = challengeId;
-        challengeUser.user_id = this.user.id;
-        this.shWeb.post("challenge_users/inscribircurso", challengeUser).then((data: ChallengeUser[]) => {
-            this.challengeUserList = data;
+    complete(challengeUserId: number, challenge: Challenge) {
+        let challengeUser: any = {};
+        challengeUser.id = challengeUserId;
+        this.shWeb.post("challenge_users/finalizarreto", challengeUser).then((data: ChallengeUser) => {
+            this.changeSelection("Completed");
         });
     }
-
 }
