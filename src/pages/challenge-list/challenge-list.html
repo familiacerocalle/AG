@@ -32,22 +32,22 @@
 <ion-content>
     <ion-row>
         <ion-col col-4 class="text-center">
-            <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="danger">Available</button>
+            <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="secondary">Available</button>
             <button ion-button *ngIf="currentSelection!='Available'" [clear]="true"
-                    (click)="changeSelection('Available')" color="danger">Available
+                    (click)="changeSelection('Available')" color="secondary">Available
             </button>
         </ion-col>
         <ion-col col-4 class="text-center">
-            <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="danger">Registered
+            <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="secondary">Registered
             </button>
             <button ion-button *ngIf="currentSelection!='Registered'" [clear]="true"
-                    (click)="changeSelection('Registered')" color="danger">Registered
+                    (click)="changeSelection('Registered')" color="secondary">Registered
             </button>
         </ion-col>
         <ion-col col-4 class="text-center">
-            <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="danger">Completed</button>
+            <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="secondary">Completed</button>
             <button ion-button *ngIf="currentSelection!='Completed'" [clear]="true"
-                    (click)="changeSelection('Completed')" color="danger">Completed
+                    (click)="changeSelection('Completed')" color="secondary">Completed
             </button>
         </ion-col>
     </ion-row>
