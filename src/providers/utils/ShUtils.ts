@@ -1,7 +1,6 @@
 /**
  * Created by KARTIKA on 7/27/2017.
  */
-import {ShToast} from "./ShToast";
 
 export class ShUtils {
     public static ascendingOrder: boolean = true;
@@ -14,7 +13,7 @@ export class ShUtils {
     protected gstValues: string[] = ["0", "3", "5", "12", "18", "28"];
     protected qtyUnit: string[] = ["pc", "kg", "gm", "m", "cm", "inch", "dozen", "l", "ml", "SqFt", "SqMt", "SqInch"];
 
-    constructor(public toastCtrl: ShToast) {
+    constructor() {
         this.selectedStockColumn = ShUtils.staticSelectedStockColumn;
         this.selectedBillColumn = ShUtils.staticSelectedBillColumn;
     }
@@ -197,6 +196,31 @@ export class ShUtils {
         }
     }
 
+    public static saveUnique(objectList, object) {
+        let found: boolean = false;
+        for (let task of objectList) {
+            if (object.id == task.id) {
+                found = true;
+            }
+        }
+        if (!found) {
+            objectList.unshift(object);
+        }
+    }
+
+
+    setListFocused(focusedObject: any, listObject: any) {
+        if (focusedObject != null && listObject != null) {
+            if (focusedObject.id == listObject.id) {
+                return '5px solid #245A8C';
+            }
+            else {
+                return '5px solid #fff';
+
+            }
+        }
+    }
+
     sort(array: Array<any>, key: any, stringType: boolean): Array<any> {
         ShUtils.ascendingOrder = !ShUtils.ascendingOrder;
         if (array != null) {
@@ -231,21 +255,8 @@ export class ShUtils {
         } else {
             message = message + "descending sorted";
         }
-        this.toastCtrl.presentToastTiming(message, 2000);
+        // this.toastCtrl.presentToastTiming(message, 2000);
         return array;
-    }
-
-
-    setListFocused(focusedObject: any, listObject: any) {
-        if (focusedObject != null && listObject != null) {
-            if (focusedObject.id == listObject.id) {
-                return '5px solid #245A8C';
-            }
-            else {
-                return '5px solid #fff';
-
-            }
-        }
     }
 
 }

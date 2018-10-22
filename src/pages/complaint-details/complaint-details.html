@@ -7,7 +7,9 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Complaint Details</ion-title>
+        <ion-title>Complaint Details
+            <button ion-button class="float-right" (click)="editComplaint()">Edit</button>
+        </ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,20 +17,21 @@
 
 <ion-content padding>
 
-    <ion-item>
-        <ion-label floating>Description</ion-label>
-        <ion-select [(ngModel)]="complaint.complaint_type_id">
-            <ion-option *ngFor="let complaintType of complaintTypeList" value="{{complaintType.id}}">
-                {{complaintType.name}}
-                {{complaintType.description}}
-            </ion-option>
-        </ion-select>
-    </ion-item>
-
-    <ion-item>
-        <ion-label floating>Description</ion-label>
-        <ion-input [(ngModel)]="complaint.descripcion"></ion-input>
-    </ion-item>
-
-    <button ion-button [block]="true" (click)="saveComplaint()">Save</button>
+    <ion-card>
+        <ion-card-content>
+            <div>{{complaint.created_at}}<span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
+            </div>
+            <hr>
+            {{complaint.descripcion}}
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="complaint.id!=null">
+        <hr>
+        <hr>
+        <h4>Attachments</h4>
+        <page-attachment-component (change)="saveComplaint()" [editAllowed]="true" [loggedInPost]="user"
+                                   [ref_id]="complaint.id"
+                                   [attachmentList]="complaint.attachments"
+                                   [ref_type]="'Complaint'"></page-attachment-component>
+    </div>
 </ion-content>

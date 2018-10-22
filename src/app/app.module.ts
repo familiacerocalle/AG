@@ -19,6 +19,11 @@ import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {ShDbStorage} from "../providers/sh-web/sh_db";
 import {ProfilePage} from "../pages/profile/profile";
+import {AttachmentComponentPage} from "../pages/attachment-component/attachment-component";
+import {AttachmentPopoverPage} from "../pages/attachment-popover/attachment-popover";
+import {Camera} from '@ionic-native/camera';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
 
 @NgModule({
     declarations: [
@@ -31,12 +36,16 @@ import {ProfilePage} from "../pages/profile/profile";
         ChallengeListPage,
         LoginPage,
         SignupPage,
-        ProfilePage
+        ProfilePage,
+        AttachmentComponentPage,
+        AttachmentPopoverPage,
+        ComplaintEditPage
     ],
     imports: [
         BrowserModule,
         HttpModule,
         HttpClientModule,
+        PdfViewerModule,
         IonicModule.forRoot(MyApp),
         IonicStorageModule.forRoot({
             name: 'gryphus',
@@ -54,12 +63,16 @@ import {ProfilePage} from "../pages/profile/profile";
         ChallengeListPage,
         LoginPage,
         SignupPage,
-        ProfilePage
+        ProfilePage,
+        AttachmentComponentPage,
+        AttachmentPopoverPage,
+        ComplaintEditPage
     ],
     providers: [
         StatusBar,
         SplashScreen,
         ShWeb,
+        Camera,
         ShDbStorage,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]

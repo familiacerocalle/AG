@@ -207,14 +207,10 @@ button {
 ion-item {
   color: $dark;
   background: transparent !important;
-  //border: .5px solid $gray !important;
-  //border-radius: 15px !important;
 }
 
 ion-select {
   max-width: 100% !important;
-  border: .5px solid $gray !important;
-  border-radius: 15px !important;
 }
 
 .bg-grey {
@@ -247,8 +243,6 @@ ion-select {
   padding: 10px !important;
   font-size: 1.1em;
   background: transparent !important;
-  border: solid .5px $gray;
-  border-radius: 15px;
   color: $dark !important;
 }
 
@@ -318,7 +312,6 @@ ion-select {
   background-color: $light;
   color: $dark !important;
   border: .5px solid $gray !important;
-  border-radius: 15px !important;
 }
 
 .completer-dropdown {

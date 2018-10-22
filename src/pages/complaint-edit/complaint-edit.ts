@@ -1,26 +1,23 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
+import {ShWeb} from "../../providers/sh-web/sh_web";
 import {Complaint} from "../../providers/models/Complaint";
 import {User} from "../../providers/models/User";
 import {ComplaintType} from "../../providers/models/ComplaintType";
-import {ShWeb} from "../../providers/sh-web/sh_web";
-import {ComplaintEditPage} from "../complaint-edit/complaint-edit";
-import {ShUtils} from "../../providers/utils/ShUtils";
 
 /**
- * Generated class for the ComplaintDetailsPage page.
+ * Generated class for the ComplaintEditPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
-
 @Component({
-    selector: 'page-complaint-details',
-    templateUrl: 'complaint-details.html',
+    selector: 'page-complaint-edit',
+    templateUrl: 'complaint-edit.html',
     providers: [ShWeb]
 })
-export class ComplaintDetailsPage {
+export class ComplaintEditPage {
     user: User;
     complaint: Complaint = new Complaint();
     complaintList: Complaint[] = [];
@@ -33,8 +30,6 @@ export class ComplaintDetailsPage {
 
         if (this.navParams.get("complaint") != null) {
             this.complaint = this.navParams.get("complaint");
-        } else {
-            this.editComplaint();
         }
 
         if (this.complaint.attachments == null) {
@@ -47,13 +42,9 @@ export class ComplaintDetailsPage {
         if (this.complaint.id == null) {
             let request: any = {};
             request.complaint = this.complaint;
-            if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.complaint.files = this.complaint.attachments;
-                this.complaint.attachments = null;
-            }
             this.shWeb.post("complaints", request).then((complaint: Complaint) => {
-                ShUtils.saveUnique(this.complaintList, this.complaint);
-                this.complaint = complaint;
+                this.complaintList.unshift(complaint);
+                this.navCtrl.pop();
             });
         } else {
             let request: any = {};
@@ -64,16 +55,9 @@ export class ComplaintDetailsPage {
                 this.complaint.attachments = null;
             }
             this.shWeb.put("complaints/" + this.complaint.id, request).then((complaint: Complaint) => {
-                this.complaint = complaint;
+                this.navCtrl.pop();
             });
         }
     }
 
-    editComplaint() {
-        this.navCtrl.push(ComplaintEditPage, {
-            complaint: this.complaint,
-            user: this.user,
-            complaintTypeList: this.complaintTypeList
-        })
-    }
 }
