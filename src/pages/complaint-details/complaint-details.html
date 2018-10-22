@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>complaintDetails</ion-title>
+        <ion-title>Complaint Details</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,20 @@
 
 <ion-content padding>
 
+    <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-select [(ngModel)]="complaint.complaint_type_id">
+            <ion-option *ngFor="let complaintType of complaintTypeList" value="{{complaintType.id}}">
+                {{complaintType.name}}
+                {{complaintType.description}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input [(ngModel)]="complaint.descripcion"></ion-input>
+    </ion-item>
+
+    <button ion-button [block]="true" (click)="saveComplaint()">Save</button>
 </ion-content>
