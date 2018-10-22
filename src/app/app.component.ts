@@ -3,7 +3,7 @@ import {AlertController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Storage} from "@ionic/storage";
-import {UserLogin} from "../providers/models/UserLogin";
+import {User} from "../providers/models/User";
 import {StaticConstantsService} from "../providers/sh-web/StaticConstants";
 import {LoginPage} from "../pages/login/login";
 import {CourceListPage} from "../pages/cource-list/cource-list";
@@ -16,7 +16,7 @@ import {ProfilePage} from "../pages/profile/profile";
 })
 export class MyApp {
     // rootPage: any;
-    userLogin: UserLogin;
+    user: User;
     @ViewChild(Nav) nav: Nav;
 
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage, private alertCtrl: AlertController) {
@@ -29,25 +29,25 @@ export class MyApp {
 
     setFirstPage() {
         this.storage.ready().then(() => {
-            this.storage.get("userLogin").then((userLogin: UserLogin) => {
-                if (userLogin != null) {
-                    this.userLogin = userLogin;
+            this.storage.get("user").then((user: User) => {
+                if (user != null) {
+                    this.user = user;
                     this.storage.get("auth").then((auth) => {
                         if (auth == null) {
-                            this.nav.setRoot(LoginPage, {userLogin: this.userLogin});
+                            this.nav.setRoot(LoginPage, {user: this.user});
                         } else {
                             StaticConstantsService.auth = auth;
                             this.nav.setRoot(CourceListPage, {
-                                userLogin: this.userLogin
+                                user: this.user
                             });
                         }
                     });
                 }
                 else {
-                    this.nav.setRoot(LoginPage, {userLogin: this.userLogin});
+                    this.nav.setRoot(LoginPage, {user: this.user});
                 }
             }).catch(() => {
-                this.nav.setRoot(LoginPage, {userLogin: this.userLogin});
+                this.nav.setRoot(LoginPage, {user: this.user});
             });
         });
     }
@@ -56,23 +56,23 @@ export class MyApp {
         switch (pageName) {
             case 'Course':
                 this.nav.setRoot(CourceListPage, {
-                    userLogin: this.userLogin,
+                    user: this.user,
                 });
                 break;
             case 'Complaint':
                 this.nav.setRoot(ComplaintListPage, {
-                    userLogin: this.userLogin,
+                    user: this.user,
                 });
                 break;
             case 'Challenge':
                 this.nav.setRoot(ChallengeListPage, {
-                    userLogin: this.userLogin,
+                    user: this.user,
                 });
                 break;
 
             case 'Profile':
                 this.nav.setRoot(ProfilePage, {
-                    userLogin: this.userLogin,
+                    user: this.user,
                 });
                 break;
         }

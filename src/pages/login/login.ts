@@ -1,7 +1,5 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {UserLogin} from "../../providers/models/UserLogin";
-import {ShDbStorage} from "../../providers/sh-web/sh_db";
 import {User} from "../../providers/models/User";
 import {ShToast} from "../../providers/utils/ShToast";
 import {ShWeb} from "../../providers/sh-web/sh_web";
@@ -11,6 +9,7 @@ import {Observable} from "../../../node_modules/rxjs";
 import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 import {catchError} from "rxjs/operators";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {ShDbStorage} from "../../providers/sh-web/sh_db";
 
 /**
  * Generated class for the LoginPage page.
@@ -21,18 +20,16 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html',
-    providers: [ShDbStorage, ShToast, ShWeb]
+    providers: [ShToast, ShWeb, ShDbStorage]
 })
 export class LoginPage {
-    userLogin: UserLogin = new UserLogin;
 
-    constructor(private httpClient: HttpClient, public navCtrl: NavController, public navParams: NavParams, private shDb: ShDbStorage, private shWeb: ShWeb) {
-        this.userLogin.user_login_user = new User;
+    constructor(private httpClient: HttpClient, public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private shDb: ShDbStorage) {
         this.getDbLogin();
     }
 
     getDbLogin() {
-        this.shDb.shGet("userLogin").then((userLoginDb: UserLogin) => {
+        this.shDb.shGet("user").then((user: User) => {
             if (userLoginDb != null) {
                 this.userLogin = userLoginDb;
             }
@@ -55,7 +52,7 @@ export class LoginPage {
     // });
     // }
     onlineLogin() {
-        this.shWeb.get("course_users/show_disp").subscribe((data: any) => {
+        this.shWeb.get("course_users/show_disp").then((data: any) => {
             console.log("data : " + JSON.stringify(data));
         });
 
