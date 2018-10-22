@@ -17,7 +17,7 @@
         <br>
         <ion-row>
             <ion-col col-12>
-                <ion-input autofocus [(ngModel)]="userLogin.user_login_user.email"
+                <ion-input autofocus [(ngModel)]="user.email"
                            placeholder="Email"
                            clearInput type="email"></ion-input>
             </ion-col>
@@ -25,7 +25,7 @@
 
         <ion-row>
             <ion-col col-12>
-                <ion-input [(ngModel)]="userLogin.user_login_user.password"
+                <ion-input [(ngModel)]="user.password"
                            placeholder="Password"
                            type="password"></ion-input>
 
@@ -40,19 +40,11 @@
 
         <ion-row>
             <ion-col col-12 class="text-center">
-                <button round class="orange-bg light-color" ion-button (click)="onlineLogin()">
+                <button round class="orange-bg light-color" ion-button (click)="login()">
                     Login
                 </button>
             </ion-col>
         </ion-row>
-
-        <!--<ion-row>-->
-        <!--<ion-col col-12 class="text-right">-->
-        <!--<button class="font-i grey-text" clear ion-button (click)="goToForgotPassword()">-->
-        <!--Forgot password ?-->
-        <!--</button>-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
 
         <ion-row>
             <ion-col col-12 class="text-center">

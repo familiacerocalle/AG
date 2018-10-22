@@ -4,12 +4,9 @@ import {User} from "../../providers/models/User";
 import {ShToast} from "../../providers/utils/ShToast";
 import {ShWeb} from "../../providers/sh-web/sh_web";
 import {SignupPage} from "../signup/signup";
-import {of} from "rxjs/observable/of";
-import {Observable} from "../../../node_modules/rxjs";
-import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
-import {catchError} from "rxjs/operators";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {ShDbStorage} from "../../providers/sh-web/sh_db";
+import {CourceListPage} from "../cource-list/cource-list";
 
 /**
  * Generated class for the LoginPage page.
@@ -23,6 +20,7 @@ import {ShDbStorage} from "../../providers/sh-web/sh_db";
     providers: [ShToast, ShWeb, ShDbStorage]
 })
 export class LoginPage {
+    user: User = new User();
 
     constructor(private httpClient: HttpClient, public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private shDb: ShDbStorage) {
         this.getDbLogin();
@@ -30,8 +28,8 @@ export class LoginPage {
 
     getDbLogin() {
         this.shDb.shGet("user").then((user: User) => {
-            if (userLoginDb != null) {
-                this.userLogin = userLoginDb;
+            if (user != null) {
+                this.user = user;
             }
         });
     }
@@ -40,68 +38,15 @@ export class LoginPage {
         this.navCtrl.setRoot(SignupPage);
     }
 
-    // onlineLogin() {
-    // this.shWeb.clientPost("/users/signin", this.userLogin.user_login_user).then((data: any) => {
-    //     console.log("data : " + JSON.stringify(data));
-    // });
-    // this.shWeb.post("/users/signin", {
-    //     email: 'nikhil.sharma.it@gmail.com',
-    //     password: '12345678'
-    // }).subscribe((data: any) => {
-    //     console.log("data : " + JSON.stringify(data));
-    // });
-    // }
-    onlineLogin() {
-        this.shWeb.get("course_users/show_disp").then((data: any) => {
-            console.log("data : " + JSON.stringify(data));
+
+    login() {
+        this.shWeb.post("users/signin", this.user).then((user: User) => {
+            this.navCtrl.setRoot(CourceListPage, {user: user});
         });
-
-
-        // this.webCall().subscribe((data: any) => {
-        //     console.log("data: " + JSON.stringify(data));
-        // });
-        //
-        // this.navCtrl.setRoot(CourceListPage, {userLogin: this.userLogin});
-    }
-
-    webCall(): Observable<any> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'Token token=' + StaticConstantsService.auth
-            })
-        };
-        return this.httpClient.post("https://gryphus-web-dev.herokuapp.com/api/v1/users/signin", '{"email" : "dilkhushsoni2010@gmail.com", "password" : "12345678"}', httpOptions).pipe(
-            catchError(this.handleError('get', []))
-        );
     }
 
     goToForgotPassword() {
         // this.navCtrl.push(ForgotPasswordPage);
     }
 
-
-    // onlineLogin() {
-    //     this.shWeb.shPostWithoutAuth("Logging in... ", "/users/signin", this.userLogin).then((userLogin: UserLogin) => {
-    //         this.shDb.shPost("userLogin", userLogin).then(() => {
-    //             this.shDb.shPost("auth", userLogin.user_login_auth).then(() => {
-    //                 this.shDb.shSaveInTable(this.userLogin, "userTable", userLogin.user_login_user).then(() => {
-    //                     this.navCtrl.setRoot(CourceListPage, {userLogin: userLogin});
-    //                 });
-    //             });
-    //         });
-    //     });
-    // }
-
-    private handleError<T>(operation = 'get', result?: T) {
-        return (error: any): Observable<T> => {
-
-
-            console.error(error); // log to console instead
-
-
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
-    }
 }

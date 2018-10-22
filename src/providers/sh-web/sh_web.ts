@@ -49,6 +49,8 @@ export class ShWeb {
     }
 
     post(url: string, body: any) {
+        // body = "'" + JSON.stringify(body) + "'";
+        body = JSON.stringify(body);
         return new Promise(resolve => {
             let shLoader = this.loadingController.create({
                 content: "Post : " + url,
@@ -69,12 +71,19 @@ export class ShWeb {
     }
 
     private get2(url: string): Observable<any> {
+        console.log("post url  : " + StaticConstantsService.getServerAddress() + url);
+        console.log("token  : " + StaticConstantsService.auth);
+
         return this.httpClient.get(StaticConstantsService.getServerAddress() + url, httpOptions).pipe(
             catchError(this.handleError('get', []))
         );
     }
 
     private post2(url: string, body: any): Observable<any> {
+        console.log("post url  : " + StaticConstantsService.getServerAddress() + url);
+        console.log("body  : " + body);
+        console.log("token  : " + StaticConstantsService.auth);
+
         return this.httpClient.post(StaticConstantsService.getServerAddress() + url, body, httpOptions).pipe(
             catchError(this.handleError('post', []))
         );

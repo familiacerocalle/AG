@@ -17,28 +17,15 @@
 
     <ion-grid class="responsiveWidth black">
         <ion-row>
-            <ion-col col-3>
-                <ion-select interface="popover"
-                            [(ngModel)]="userLogin.user_login_user.user_gender">
-                    <ion-option value="MR">Mr</ion-option>
-                    <ion-option value="MRS">Mrs</ion-option>
-                    <ion-option value="MISS">Miss</ion-option>
-                </ion-select>
-            </ion-col>
-            <ion-col col-9>
-                <ion-input [(ngModel)]="userLogin.user_login_user.user_name" placeholder="Name"
+            <ion-col col-12>
+                <ion-input [(ngModel)]="user.nombre" placeholder="Name"
                            type="text"></ion-input>
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col col-3>
-                <ion-select [(ngModel)]="userLogin.user_login_user.user_country_code">
-                    <ion-option value="91">+91</ion-option>
-                </ion-select>
-            </ion-col>
-            <ion-col col-9>
-                <ion-input [(ngModel)]="userLogin.user_login_user.user_mobile" type="number"
-                           placeholder="Mobile"></ion-input>
+            <ion-col col-12>
+                <ion-input [(ngModel)]="user.email" type="email"
+                           placeholder="Email"></ion-input>
             </ion-col>
         </ion-row>
 
@@ -49,22 +36,22 @@
             </ion-col>
             <ion-col col-9>
                 <ion-input *ngIf="!showPassword" placeholder="Password"
-                           [(ngModel)]="userLogin.user_login_password"
+                           [(ngModel)]="user.password"
                            type="password"></ion-input>
 
 
                 <ion-input *ngIf="showPassword" placeholder="Password"
-                           [(ngModel)]="userLogin.user_login_password"
+                           [(ngModel)]="user.password"
                            type="text"></ion-input>
             </ion-col>
         </ion-row>
 
         <ion-row>
             <ion-col col-3 class="text-center font-2">
-                <ion-icon *ngIf="confirmPassword!=null && userLogin.user_login_password==confirmPassword"
+                <ion-icon *ngIf="confirmPassword!=null && user.password==confirmPassword"
                           color="secondary"
                           name="checkmark"></ion-icon>
-                <ion-icon *ngIf="confirmPassword==null && userLogin.user_login_password!=confirmPassword"
+                <ion-icon *ngIf="confirmPassword==null && user.password!=confirmPassword"
                           color="light-color"
                           name="checkmark"></ion-icon>
             </ion-col>

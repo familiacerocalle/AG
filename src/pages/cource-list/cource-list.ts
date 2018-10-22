@@ -38,8 +38,8 @@ export class CourceListPage {
     }
 
     getAvailable() {
-        this.shWeb.get("").subscribe((data: any) => {
-
+        this.shWeb.get("course_users/show_disp").then((data: any) => {
+            console.log("data : " + JSON.stringify(data));
         });
     }
 
