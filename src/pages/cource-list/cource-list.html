@@ -16,6 +16,7 @@
                     Courses
                 </ion-col>
                 <ion-col col-6>
+                    {{user.nombre}}-{{user.id}}
                     <button *ngIf="user.primerApellido!=null && user.primerApellido=='ADMIN'" class="float-right">
                         Create New
                     </button>
@@ -30,20 +31,20 @@
 
 <ion-content>
     <ion-row>
-        <ion-col col-4>
+        <ion-col col-4 class="text-center">
             <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="secondary">Available</button>
             <button ion-button *ngIf="currentSelection!='Available'" [clear]="true"
                     (click)="changeSelection('Available')" color="secondary">Available
             </button>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-4 class="text-center">
             <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="secondary">Registered
             </button>
             <button ion-button *ngIf="currentSelection!='Registered'" [clear]="true"
                     (click)="changeSelection('Registered')" color="secondary">Registered
             </button>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-4 class="text-center">
             <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="secondary">Completed</button>
             <button ion-button *ngIf="currentSelection!='Completed'" [clear]="true"
                     (click)="changeSelection('Completed')" color="secondary">Completed
@@ -52,11 +53,53 @@
     </ion-row>
     <hr>
     <ion-row *ngIf="currentSelection=='Available'">
-        <ion-col col-6 col-md-12 *ngFor="let course of courseList">{{course.nombre}}</ion-col>
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let course of courseList">
+            <ion-card class="text-center">
+                <ion-card-header><h1>{{course.nombre}}</h1></ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-12><img src="./assets/imgs/course.jpg"/></ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-12>{{course.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row>
+                        <ion-col col-12>
+                            <button ion-button [block]="true" (click)="register(course)">Register</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+
+            </ion-card>
+
+        </ion-col>
     </ion-row>
-    <ion-row *ngIf="currentSelection!='Available'">
-        <ion-col col-6 col-md-12 *ngFor="let courseUser of courseUserList">
-            {{courseUser.fechainicio}}-<span *ngIf="courseUser.course!=null">{{courseUser.course.nombre}}</span>
+    <ion-row *ngIf="currentSelection!='Available' && courseUserList!=null">
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let courseUser of courseUserList">
+            <ion-card class="text-center">
+                <ion-card-header><h1>{{courseUser.course.nombre}}</h1></ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-12><img src="./assets/imgs/course.jpg"/></ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-12>{{courseUser.course.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row *ngIf="currentSelection=='Registered'">
+                        <ion-col col-12>
+                            <button ion-button [block]="true" (click)="complete(courseUser.id, courseUser.course)">
+                                Complete
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
         </ion-col>
     </ion-row>
 </ion-content>

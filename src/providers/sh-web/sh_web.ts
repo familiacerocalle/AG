@@ -12,13 +12,6 @@ import {Observable} from 'rxjs';
 import {catchError} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
 
-const httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Token token=' + StaticConstantsService.auth
-    })
-};
-
 
 @Injectable()
 export class ShWeb {
@@ -71,9 +64,14 @@ export class ShWeb {
     }
 
     private get2(url: string): Observable<any> {
-        console.log("post url  : " + StaticConstantsService.getServerAddress() + url);
+        console.log("get url  : " + StaticConstantsService.getServerAddress() + url);
         console.log("token  : " + StaticConstantsService.auth);
-
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Token token=' + StaticConstantsService.auth
+            })
+        };
         return this.httpClient.get(StaticConstantsService.getServerAddress() + url, httpOptions).pipe(
             catchError(this.handleError('get', []))
         );
@@ -83,7 +81,12 @@ export class ShWeb {
         console.log("post url  : " + StaticConstantsService.getServerAddress() + url);
         console.log("body  : " + body);
         console.log("token  : " + StaticConstantsService.auth);
-
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Token token=' + StaticConstantsService.auth
+            })
+        };
         return this.httpClient.post(StaticConstantsService.getServerAddress() + url, body, httpOptions).pipe(
             catchError(this.handleError('post', []))
         );

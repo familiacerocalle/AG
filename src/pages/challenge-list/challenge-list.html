@@ -1,5 +1,5 @@
 <!--
-  Generated template for the ChallengeListPage page.
+  Generated template for the CourceListPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,80 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>challengeList</ion-title>
+        <ion-title>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon menuToggle class="font-1-5" name="md-menu"></ion-icon>
+                </ion-col>
+                <ion-col col-5>
+                    Challenges
+                </ion-col>
+                <ion-col col-6>
+                    {{user.nombre}}-{{user.id}}
+                    <button *ngIf="user.primerApellido!=null && user.primerApellido=='ADMIN'" class="float-right">
+                        Create New
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-title>
+
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+    <ion-row>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="secondary">Available</button>
+            <button ion-button *ngIf="currentSelection!='Available'" [clear]="true"
+                    (click)="changeSelection('Available')" color="secondary">Available
+            </button>
+        </ion-col>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="secondary">Registered
+            </button>
+            <button ion-button *ngIf="currentSelection!='Registered'" [clear]="true"
+                    (click)="changeSelection('Registered')" color="secondary">Registered
+            </button>
+        </ion-col>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="secondary">Completed</button>
+            <button ion-button *ngIf="currentSelection!='Completed'" [clear]="true"
+                    (click)="changeSelection('Completed')" color="secondary">Completed
+            </button>
+        </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row *ngIf="currentSelection=='Available'">
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challenge of challengeList">
+            <ion-card class="text-center">
+                <ion-card-header><h1>{{challenge.nombre}}</h1></ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-12><img src="./assets/imgs/challenge.jpg"/></ion-col>
+                    </ion-row>
 
+                    <ion-row>
+                        <ion-col col-12>{{challenge.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row>
+                        <ion-col col-12>
+                            <button ion-button [block]="true" (click)="register(challenge.id)">Register</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+
+            </ion-card>
+
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="currentSelection!='Available'">
+        <ion-col col-6 col-md-12 *ngFor="let challengeUser of challengeUserList">
+            {{challengeUser.fechainicio}}-<span
+                *ngIf="challengeUser.challenge!=null">{{challengeUser.challenge.nombre}}</span>
+        </ion-col>
+    </ion-row>
 </ion-content>

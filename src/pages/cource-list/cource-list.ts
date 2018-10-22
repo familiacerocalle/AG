@@ -4,6 +4,7 @@ import {ShWeb} from "../../providers/sh-web/sh_web";
 import {Course} from "../../providers/models/Course";
 import {CourseUser} from "../../providers/models/CourseUser";
 import {User} from "../../providers/models/User";
+import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 
 /**
  * Generated class for the CourceListPage page.
@@ -22,9 +23,10 @@ export class CourceListPage {
     courseList: Course[] = [];
     currentSelection: string = "Available";
     courseUserList: CourseUser[] = [];
-    user: User = new User;
+    user: User;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
+        console.log("token : " + StaticConstantsService.auth);
         this.user = this.navParams.get("user");
         this.changeSelection("Available")
     }
@@ -53,6 +55,7 @@ export class CourceListPage {
 
     getCompleted() {
         this.shWeb.get("course_users/show_hist?id=" + this.user.id).then((data: CourseUser[]) => {
+            console.log("completed course user : " + JSON.stringify(data));
             this.courseUserList = data;
 
         });
@@ -60,27 +63,27 @@ export class CourceListPage {
 
     getRegistered() {
         this.shWeb.get("course_users/show_act?id=" + this.user.id).then((data: CourseUser[]) => {
+            console.log("registered course user : " + JSON.stringify(data));
             this.courseUserList = data;
         });
     }
 
 
-    register(courserId: number) {
-        let courseUser: CourseUser = new CourseUser();
-        courseUser.course_id = courserId;
-        courseUser.user_id = this.user.id;
-        this.shWeb.post("course_users/inscribircurso", courseUser).then((data: CourseUser[]) => {
-            this.courseUserList = data;
+    register(course: Course) {
+        let courseUser: any = {};
+        courseUser.courseid = course.id;
+        courseUser.userid = this.user.id;
+        this.shWeb.post("course_users/inscribircurso", courseUser).then((data: CourseUser) => {
+            this.changeSelection("Registered");
         });
     }
 
 
-    complete(courserId: number) {
-        let courseUser: CourseUser = new CourseUser();
-        courseUser.course_id = courserId;
-        courseUser.user_id = this.user.id;
-        this.shWeb.post("course_users/inscribircurso", courseUser).then((data: CourseUser[]) => {
-            this.courseUserList = data;
+    complete(courseUserId: number, course: Course) {
+        let courseUser: any = {};
+        courseUser.id = courseUserId;
+        this.shWeb.post("course_users/finalizarcurso", courseUser).then((data: CourseUser) => {
+            this.changeSelection("Completed");
         });
     }
 }

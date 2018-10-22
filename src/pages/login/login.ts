@@ -7,6 +7,7 @@ import {SignupPage} from "../signup/signup";
 import {HttpClient} from "@angular/common/http";
 import {ShDbStorage} from "../../providers/sh-web/sh_db";
 import {CourceListPage} from "../cource-list/cource-list";
+import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 
 /**
  * Generated class for the LoginPage page.
@@ -22,8 +23,8 @@ import {CourceListPage} from "../cource-list/cource-list";
 export class LoginPage {
     user: User = new User();
 
-    constructor(private httpClient: HttpClient, public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private shDb: ShDbStorage) {
-        this.getDbLogin();
+    constructor(private httpClient: HttpClient, private shToast: ShToast, public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private shDb: ShDbStorage) {
+        // this.getDbLogin();
     }
 
     getDbLogin() {
@@ -41,7 +42,16 @@ export class LoginPage {
 
     login() {
         this.shWeb.post("users/signin", this.user).then((user: User) => {
-            this.navCtrl.setRoot(CourceListPage, {user: user});
+            this.shDb.shPost("user", user).then(() => {
+                this.shDb.shPost("auth", user.token).then(() => {
+                    console.log("user : " + JSON.stringify(user));
+                    console.log("token : " + user.token);
+                    StaticConstantsService.auth = user.token;
+                    console.log("token2 : " + StaticConstantsService.auth);
+                    this.shToast.presentToast("Welcome to Gryphus!!");
+                    this.navCtrl.setRoot(CourceListPage, {user: user});
+                });
+            });
         });
     }
 
