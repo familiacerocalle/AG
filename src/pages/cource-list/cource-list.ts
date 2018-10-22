@@ -63,4 +63,24 @@ export class CourceListPage {
             this.courseUserList = data;
         });
     }
+
+
+    register(courserId: number) {
+        let courseUser: CourseUser = new CourseUser();
+        courseUser.course_id = courserId;
+        courseUser.user_id = this.user.id;
+        this.shWeb.post("course_users/inscribircurso", courseUser).then((data: CourseUser[]) => {
+            this.courseUserList = data;
+        });
+    }
+
+
+    complete(courserId: number) {
+        let courseUser: CourseUser = new CourseUser();
+        courseUser.course_id = courserId;
+        courseUser.user_id = this.user.id;
+        this.shWeb.post("course_users/inscribircurso", courseUser).then((data: CourseUser[]) => {
+            this.courseUserList = data;
+        });
+    }
 }

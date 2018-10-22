@@ -10,6 +10,7 @@ import {ComplaintListPage} from "../pages/complaint-list/complaint-list";
 import {ChallengeListPage} from "../pages/challenge-list/challenge-list";
 import {ProfilePage} from "../pages/profile/profile";
 import {SignupPage} from "../pages/signup/signup";
+import {LoginPage} from "../pages/login/login";
 
 @Component({
     templateUrl: 'app.html'
@@ -33,7 +34,7 @@ export class MyApp {
                     this.user = user;
                     this.storage.get("auth").then((auth) => {
                         if (auth == null) {
-                            this.nav.setRoot(SignupPage, {user: this.user});
+                            this.nav.setRoot(LoginPage, {user: this.user});
                         } else {
                             StaticConstantsService.auth = auth;
                             this.nav.setRoot(CourceListPage, {

@@ -2,7 +2,6 @@
  * Created by KARTIKA on 7/27/2017.
  */
 import {ShToast} from "./ShToast";
-import {ComplaintStatus} from "../models/ComplaintStatus";
 
 export class ShUtils {
     public static ascendingOrder: boolean = true;
@@ -171,29 +170,6 @@ export class ShUtils {
         }
         else {
             return "light";
-        }
-    }
-
-    getContentColor(statusList: ComplaintStatus[]) {
-        let selectedType: string = "";
-        let lastDate: number = 0;
-        if (statusList != null) {
-            for (let statusObj of statusList) {
-                if (lastDate < statusObj.status_date) {
-                    lastDate = statusObj.status_date;
-                    selectedType = statusObj.status;
-                }
-            }
-        }
-        switch (selectedType) {
-            case "Completed":
-                return "#C7F5D4";
-            case "Resolved":
-                return "#CDDFFF";
-            case "Raised":
-                return "#ffcccc";
-            default:
-                return "#FFFFD5";
         }
     }
 

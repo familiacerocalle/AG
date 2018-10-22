@@ -5,14 +5,36 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
     <ion-navbar>
-        <ion-title>profile</ion-title>
-    </ion-navbar>
+        <ion-title>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon menuToggle class="font-1-5" name="md-menu"></ion-icon>
+                </ion-col>
+                <ion-col col-11>
+                    Profile
+                </ion-col>
+            </ion-row>
+        </ion-title>
 
+    </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="text-center">
+    <h1>{{user.nombre}}</h1>
+    <ion-row>
+        <ion-col col-4 class="sh-border">Email</ion-col>
+        <ion-col col-8 class="sh-border"><h4>{{user.email}}</h4></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-4 class="sh-border">Joining date</ion-col>
+        <ion-col col-8 class="sh-border"><h4>{{user.created_at}}</h4></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-4 class="sh-border">Language</ion-col>
+        <ion-col col-8 class="sh-border"><h4>{{user.locale}}</h4></ion-col>
+    </ion-row>
 
+    <button ion-button (click)="logout()" color="danger">Logout</button>
 </ion-content>

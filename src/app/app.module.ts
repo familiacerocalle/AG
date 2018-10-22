@@ -18,6 +18,7 @@ import {HttpModule} from "@angular/http";
 import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {ShDbStorage} from "../providers/sh-web/sh_db";
+import {ProfilePage} from "../pages/profile/profile";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {ShDbStorage} from "../providers/sh-web/sh_db";
         ChallengeDetailsPage,
         ChallengeListPage,
         LoginPage,
-        SignupPage
+        SignupPage,
+        ProfilePage
     ],
     imports: [
         BrowserModule,
@@ -51,7 +53,8 @@ import {ShDbStorage} from "../providers/sh-web/sh_db";
         ChallengeDetailsPage,
         ChallengeListPage,
         LoginPage,
-        SignupPage
+        SignupPage,
+        ProfilePage
     ],
     providers: [
         StatusBar,
