@@ -11,7 +11,6 @@ import {Observable} from "../../../node_modules/rxjs";
 import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 import {catchError} from "rxjs/operators";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CourceListPage} from "../cource-list/cource-list";
 
 /**
  * Generated class for the LoginPage page.
@@ -56,11 +55,16 @@ export class LoginPage {
     // });
     // }
     onlineLogin() {
+        this.shWeb.get("course_users/show_disp").subscribe((data: any) => {
+            console.log("data : " + JSON.stringify(data));
+        });
+
+
         // this.webCall().subscribe((data: any) => {
         //     console.log("data: " + JSON.stringify(data));
         // });
-
-        this.navCtrl.setRoot(CourceListPage, {userLogin: this.userLogin});
+        //
+        // this.navCtrl.setRoot(CourceListPage, {userLogin: this.userLogin});
     }
 
     webCall(): Observable<any> {
@@ -70,7 +74,7 @@ export class LoginPage {
                 'Authorization': 'Token token=' + StaticConstantsService.auth
             })
         };
-        return this.httpClient.post("https://gryphus-web-dev.herokuapp.com/api/v1/users/signin", "{email: 'nikhil.sharma.it@gmail.com', password: '12345678'}", httpOptions).pipe(
+        return this.httpClient.post("https://gryphus-web-dev.herokuapp.com/api/v1/users/signin", '{"email" : "dilkhushsoni2010@gmail.com", "password" : "12345678"}', httpOptions).pipe(
             catchError(this.handleError('get', []))
         );
     }

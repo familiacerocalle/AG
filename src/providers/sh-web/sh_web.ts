@@ -15,7 +15,7 @@ import {of} from "rxjs/observable/of";
 const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Token token=' + StaticConstantsService.auth
+        'Authorization': 'Token token=0137e33939bede8bbaae6b055a850609'
     })
 };
 
@@ -26,20 +26,6 @@ export class ShWeb {
 
     }
 
-    clientPost(url: string, data: any) {
-        return new Promise(resolve => {
-            const httpOptions = {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Token token=' + StaticConstantsService.auth
-                })
-            };
-            resolve(this.httpClient.post(StaticConstantsService.getServerAddress() + url, data, httpOptions));
-        }).catch(error => {
-            console.log("error in http Call : " + error + " $$ " + error.toString());
-        });
-    }
-
     get(url: string): Observable<any> {
         return this.httpClient.get(StaticConstantsService.getServerAddress() + url, httpOptions).pipe(
             catchError(this.handleError('get', []))
@@ -48,8 +34,9 @@ export class ShWeb {
 
 
     post(url: string, body: any): Observable<any> {
+        body = JSON.stringify(body);
         return this.httpClient.post(StaticConstantsService.getServerAddress() + url, body, httpOptions).pipe(
-            catchError(this.handleError('get', []))
+            catchError(this.handleError('post', []))
         );
     }
 

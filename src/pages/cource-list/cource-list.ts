@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
+import {ShWeb} from "../../providers/sh-web/sh_web";
 
 /**
  * Generated class for the CourceListPage page.
@@ -12,14 +13,43 @@ import {NavController, NavParams} from 'ionic-angular';
 @Component({
     selector: 'page-cource-list',
     templateUrl: 'cource-list.html',
+    providers: [ShWeb]
 })
 export class CourceListPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    currentSelection: string = "Available";
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad CourceListPage');
+    changeSelection(selection: string) {
+        this.currentSelection = selection;
+        switch (selection) {
+            case "Available":
+                this.getAvailable();
+                break;
+            case "Registered":
+                this.getRegistered();
+                break;
+            case "Completed":
+                this.getCompleted();
+                break;
+        }
     }
 
+    getAvailable() {
+        this.shWeb.get("").subscribe((data: any) => {
+
+        });
+    }
+
+
+    getCompleted() {
+
+    }
+
+
+    getRegistered() {
+
+    }
 }
