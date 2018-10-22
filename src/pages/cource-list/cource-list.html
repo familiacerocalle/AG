@@ -7,12 +7,56 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>courceList</ion-title>
+        <ion-title>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon menuToggle class="font-1-5" name="md-menu"></ion-icon>
+                </ion-col>
+                <ion-col col-5>
+                    Courses
+                </ion-col>
+                <ion-col col-6>
+                    <button *ngIf="user.primerApellido!=null && user.primerApellido=='ADMIN'" class="float-right">
+                        Create New
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-title>
+
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+    <ion-row>
+        <ion-col col-4>
+            <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="secondary">Available</button>
+            <button ion-button *ngIf="currentSelection!='Available'" [clear]="true"
+                    (click)="changeSelection('Available')" color="secondary">Available
+            </button>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="secondary">Registered
+            </button>
+            <button ion-button *ngIf="currentSelection!='Registered'" [clear]="true"
+                    (click)="changeSelection('Registered')" color="secondary">Registered
+            </button>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="secondary">Completed</button>
+            <button ion-button *ngIf="currentSelection!='Completed'" [clear]="true"
+                    (click)="changeSelection('Completed')" color="secondary">Completed
+            </button>
+        </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row *ngIf="currentSelection=='Available'">
+        <ion-col col-6 col-md-12 *ngFor="let course of courseList">{{course.nombre}}</ion-col>
+    </ion-row>
+    <ion-row *ngIf="currentSelection!='Available'">
+        <ion-col col-6 col-md-12 *ngFor="let courseUser of courseUserList">
+            {{courseUser.fechainicio}}-<span *ngIf="courseUser.course!=null">{{courseUser.course.nombre}}</span>
+        </ion-col>
+    </ion-row>
 </ion-content>

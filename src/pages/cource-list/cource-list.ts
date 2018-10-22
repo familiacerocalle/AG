@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ShWeb} from "../../providers/sh-web/sh_web";
+import {Course} from "../../providers/models/Course";
+import {CourseUser} from "../../providers/models/CourseUser";
+import {User} from "../../providers/models/User";
 
 /**
  * Generated class for the CourceListPage page.
@@ -16,10 +19,14 @@ import {ShWeb} from "../../providers/sh-web/sh_web";
     providers: [ShWeb]
 })
 export class CourceListPage {
-
+    courseList: Course[] = [];
     currentSelection: string = "Available";
+    courseUserList: CourseUser[] = [];
+    user: User = new User;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
+        this.user = this.navParams.get("user");
+        this.changeSelection("Available")
     }
 
     changeSelection(selection: string) {
@@ -38,18 +45,22 @@ export class CourceListPage {
     }
 
     getAvailable() {
-        this.shWeb.get("course_users/show_disp").then((data: any) => {
+        this.shWeb.get("course_users/show_disp").then((data: Course[]) => {
             console.log("data : " + JSON.stringify(data));
+            this.courseList = data;
         });
     }
 
-
     getCompleted() {
+        this.shWeb.get("course_users/show_hist?id=" + this.user.id).then((data: CourseUser[]) => {
+            this.courseUserList = data;
 
+        });
     }
 
-
     getRegistered() {
-
+        this.shWeb.get("course_users/show_act?id=" + this.user.id).then((data: CourseUser[]) => {
+            this.courseUserList = data;
+        });
     }
 }

@@ -31,7 +31,7 @@ export class ShWeb {
     get(url: string) {
         return new Promise(resolve => {
             let shLoader = this.loadingController.create({
-                content: "Post : " + url,
+                content: "Get : " + url,
                 duration: 100000
             });
             shLoader.present();
