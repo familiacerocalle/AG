@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>challengeDetails</ion-title>
+        <ion-title>Challenge Details</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,30 @@
 
 <ion-content padding>
 
+    <ion-card>
+        <ion-card-content>
+            Description<br>
+            <div class="font-1-5">{{challenge.descripcion}}</div>
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="challenge.attachments!=null">
+        <ion-card *ngFor="let attachment of challenge.attachments">
+            <img src="https://gryphus-web-dev.herokuapp.com/api/v1{{attachment.file.url}}">
+        </ion-card>
+    </div>
+
+    <ion-card *ngIf="challenge.challenge_user!=null">
+        <ion-card-content>
+            Start date<br>
+            <div class="font-1-5">{{challenge.challenge_user.fechainicio}}</div>
+            End date<br>
+            <div class="font-1-5">{{challenge.challenge_user.fechafin}}</div>
+        </ion-card-content>
+    </ion-card>
+
+    <button ion-button [block]="true" (click)="register(challenge)" *ngIf="challengeStatus=='Available'">Register
+    </button>
+    <button ion-button [block]="true" (click)="complete(challenge.challenge_user.id)"
+            *ngIf="challenge.challenge_user!=null && challengeStatus=='Register'">Complete
+    </button>
 </ion-content>

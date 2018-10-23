@@ -55,13 +55,11 @@
     <ion-row *ngIf="currentSelection=='Available'">
         <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challenge of challengeList">
             <ion-card class="text-center">
-                <ion-card-header><h1>{{challenge.nombre}}</h1></ion-card-header>
+                <ion-card-header (click)="clickChallenge(challenge)"><h1>{{challenge.descripcion}}</h1>
+                </ion-card-header>
                 <ion-card-content>
-                    <ion-row>
-                        <ion-col col-12><img src="./assets/imgs/challenge.jpg"/></ion-col>
-                    </ion-row>
 
-                    <ion-row>
+                    <ion-row (click)="clickChallenge(challenge)">
                         <ion-col col-12>{{challenge.contenido}}</ion-col>
                     </ion-row>
 
@@ -80,13 +78,10 @@
     <ion-row *ngIf="currentSelection!='Available' && challengeUserList!=null">
         <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challengeUser of challengeUserList">
             <ion-card class="text-center">
-                <ion-card-header><h1>{{challengeUser.challenge.nombre}}</h1></ion-card-header>
+                <ion-card-header (click)="clickChallenge(challengeUser.challenge, challengeUser)"><h1>
+                    {{challengeUser.challenge.descripcion}} {{challengeUser.id}}</h1></ion-card-header>
                 <ion-card-content>
-                    <ion-row>
-                        <ion-col col-12><img src="./assets/imgs/challenge.jpg"/></ion-col>
-                    </ion-row>
-
-                    <ion-row>
+                    <ion-row (click)="clickChallenge(challengeUser.challenge, challengeUser)">
                         <ion-col col-12>{{challengeUser.challenge.contenido}}</ion-col>
                     </ion-row>
 

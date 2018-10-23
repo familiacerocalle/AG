@@ -5,6 +5,7 @@ import {User} from "../../providers/models/User";
 import {Challenge} from "../../providers/models/Challenge";
 import {ChallengeUser} from "../../providers/models/ChallengeUser";
 import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
+import {ChallengeDetailsPage} from "../challenge-details/challenge-details";
 
 /**
  * Generated class for the ChallengeListPage page.
@@ -28,6 +29,9 @@ export class ChallengeListPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
         console.log("token : " + StaticConstantsService.auth);
         this.user = this.navParams.get("user");
+        if (this.navParams.get("currentSelection") != null) {
+            this.currentSelection = this.navParams.get("currentSelection");
+        }
         this.changeSelection("Available")
     }
 
@@ -84,6 +88,15 @@ export class ChallengeListPage {
         challengeUser.id = challengeUserId;
         this.shWeb.post("challenge_users/finalizarreto", challengeUser).then((data: ChallengeUser) => {
             this.changeSelection("Completed");
+        });
+    }
+
+    clickChallenge(challenge: Challenge, challengeUser: ChallengeUser) {
+        this.navCtrl.push(ChallengeDetailsPage, {
+            challengeStatus: this.currentSelection,
+            id: challenge.id,
+            user: this.user,
+            challengeUser: challengeUser
         });
     }
 }
