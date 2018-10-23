@@ -79,7 +79,7 @@
         <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challengeUser of challengeUserList">
             <ion-card class="text-center">
                 <ion-card-header (click)="clickChallenge(challengeUser.challenge, challengeUser)"><h1>
-                    {{challengeUser.challenge.descripcion}} {{challengeUser.id}}</h1></ion-card-header>
+                    {{challengeUser.challenge.descripcion}}</h1></ion-card-header>
                 <ion-card-content>
                     <ion-row (click)="clickChallenge(challengeUser.challenge, challengeUser)">
                         <ion-col col-12>{{challengeUser.challenge.contenido}}</ion-col>

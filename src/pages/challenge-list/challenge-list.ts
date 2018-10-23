@@ -32,7 +32,7 @@ export class ChallengeListPage {
         if (this.navParams.get("currentSelection") != null) {
             this.currentSelection = this.navParams.get("currentSelection");
         }
-        this.changeSelection("Available")
+        this.changeSelection(this.currentSelection);
     }
 
     changeSelection(selection: string) {

@@ -23,22 +23,25 @@
     </ion-card>
     <div *ngIf="challenge.attachments!=null">
         <ion-card *ngFor="let attachment of challenge.attachments">
-            <img src="https://gryphus-web-dev.herokuapp.com/api/v1{{attachment.file.url}}">
+            <img src="https://gryphus-web-dev.herokuapp.com{{attachment.file.url}}">
         </ion-card>
     </div>
 
     <ion-card *ngIf="challenge.challenge_user!=null">
         <ion-card-content>
-            Start date<br>
-            <div class="font-1-5">{{challenge.challenge_user.fechainicio}}</div>
-            End date<br>
-            <div class="font-1-5">{{challenge.challenge_user.fechafin}}</div>
+            <div *ngIf="challenge.challenge_user.fechainicio!=null">
+                Start date<br>
+                <div class="font-1-5">{{challenge.challenge_user.fechainicio}}</div>
+            </div>
+            <div *ngIf="challenge.challenge_user.fechafin!=null">End date<br>
+                <div class="font-1-5">{{challenge.challenge_user.fechafin}}</div>
+            </div>
         </ion-card-content>
     </ion-card>
 
     <button ion-button [block]="true" (click)="register(challenge)" *ngIf="challengeStatus=='Available'">Register
     </button>
     <button ion-button [block]="true" (click)="complete(challenge.challenge_user.id)"
-            *ngIf="challenge.challenge_user!=null && challengeStatus=='Register'">Complete
+            *ngIf="challenge.challenge_user!=null && challengeStatus=='Registered'">Complete
     </button>
 </ion-content>
