@@ -16,7 +16,7 @@
 
 <ion-content padding>
     <ion-item>
-        <ion-label floating>Description</ion-label>
+        <ion-label floating>Complaint Type</ion-label>
         <ion-select [(ngModel)]="complaint.complaint_type_id">
             <ion-option *ngFor="let complaintType of complaintTypeList" value="{{complaintType.id}}">
                 {{complaintType.name}}
