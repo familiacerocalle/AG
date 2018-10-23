@@ -20,10 +20,15 @@
             Description<br>
             <div class="font-1-5">{{challenge.descripcion}}</div>
         </ion-card-content>
+        <ion-card-content>
+            Challenge Level<br>
+            <div class="font-1-5">{{challenge.challengelevel}}</div>
+        </ion-card-content>
     </ion-card>
+
     <div *ngIf="challenge.attachments!=null">
         <ion-card *ngFor="let attachment of challenge.attachments">
-            <img src="https://gryphus-web-dev.herokuapp.com{{attachment.file.url}}">
+            <img src="{{attachment.file.url}}">
         </ion-card>
     </div>
 
@@ -31,10 +36,10 @@
         <ion-card-content>
             <div *ngIf="challenge.challenge_user.fechainicio!=null">
                 Start date<br>
-                <div class="font-1-5">{{challenge.challenge_user.fechainicio}}</div>
+                <div class="font-1-5">{{challenge.challenge_user.fechainicio | date:'medium'}}</div>
             </div>
             <div *ngIf="challenge.challenge_user.fechafin!=null">End date<br>
-                <div class="font-1-5">{{challenge.challenge_user.fechafin}}</div>
+                <div class="font-1-5">{{challenge.challenge_user.fechafin | date:'medium'}}</div>
             </div>
         </ion-card-content>
     </ion-card>

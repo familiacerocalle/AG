@@ -32,7 +32,7 @@
 
     <ion-card *ngFor="let complaint of complaintList" (click)="clickComplaint(complaint)">
         <ion-card-content>
-            <div>{{complaint.created_at}}<span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
+            <div>{{complaint.created_at | date:'medium'}}<span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
             </div>
             <hr>
             {{complaint.descripcion}}

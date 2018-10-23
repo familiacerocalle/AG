@@ -4,6 +4,6 @@ export class StaticConstantsService {
     public static buildType: string = "Browser";
 
     static getServerAddress() {
-        return "https://gryphus-web-dev.herokuapp.com/api/v1/";
+        return "http://localhost:3000/api/v1/";
     }
 }

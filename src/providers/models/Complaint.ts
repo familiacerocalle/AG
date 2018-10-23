@@ -10,6 +10,7 @@ export class Complaint {
     user_id: number;
     complaint_type_id: number;
     files: string;
+    challengelevel: string;
 
     complaintType: ComplaintType;
     attachments: Attachment[];
