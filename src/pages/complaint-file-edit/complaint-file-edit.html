@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>complaintFileEdit</ion-title>
+        <ion-title>Complaint File</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,19 @@
 
 <ion-content padding>
 
+    <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input [(ngModel)]="complaintFile.description"></ion-input>
+    </ion-item>
+
+    <div *ngIf="complaintFile.id!=null">
+        <hr>
+        <hr>
+        <h4>Attachments</h4>
+        <page-attachment-component (change)="saveEdit()" [editAllowed]="true" [loggedInPost]="user"
+                                   [ref_id]="complaintFile.id"
+                                   [attachmentList]="complaintFile.attachments"
+                                   [ref_type]="'ComplaintFile'"></page-attachment-component>
+    </div>
+    <button ion-button [block]="true" (click)="saveEdit()">Save</button>
 </ion-content>

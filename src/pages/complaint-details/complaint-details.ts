@@ -84,6 +84,10 @@ export class ComplaintDetailsPage {
     }
 
     complaintFile(complaintFile: ComplaintFile) {
-        this.navCtrl.push(ComplaintFileEditPage, {complaintFile: complaintFile, complaint: this.complaint});
+        this.navCtrl.push(ComplaintFileEditPage, {
+            complaintFile: complaintFile,
+            complaint: this.complaint,
+            user: this.user
+        });
     }
 }

@@ -24,6 +24,7 @@ import {AttachmentPopoverPage} from "../pages/attachment-popover/attachment-popo
 import {Camera} from '@ionic-native/camera';
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
+import {ComplaintFileEditPage} from "../pages/complaint-file-edit/complaint-file-edit";
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
         ProfilePage,
         AttachmentComponentPage,
         AttachmentPopoverPage,
-        ComplaintEditPage
+        ComplaintEditPage,
+        ComplaintFileEditPage
     ],
     imports: [
         BrowserModule,
@@ -66,7 +68,8 @@ import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
         ProfilePage,
         AttachmentComponentPage,
         AttachmentPopoverPage,
-        ComplaintEditPage
+        ComplaintEditPage,
+        ComplaintFileEditPage
     ],
     providers: [
         StatusBar,
