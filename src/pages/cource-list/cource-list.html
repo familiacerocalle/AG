@@ -55,17 +55,9 @@
     <ion-row *ngIf="currentSelection=='Available'">
         <ion-col col-12 col-md-6 col-lg-6 *ngFor="let course of courseList">
             <ion-card class="text-center">
-                <ion-card-header><h1>{{course.nombre}}</h1></ion-card-header>
+                <ion-card-header (click)="clickCourse(course)"><h3>{{course.nombre}}</h3>
+                </ion-card-header>
                 <ion-card-content>
-                    <ion-row>
-                        <ion-col col-12><img src="./assets/imgs/course.jpg"/></ion-col>
-                    </ion-row>
-
-                    <ion-row>
-                        <ion-col col-12>{{course.contenido}}</ion-col>
-                    </ion-row>
-
-
                     <ion-row>
                         <ion-col col-12>
                             <button ion-button [block]="true" (click)="register(course)">Register</button>
@@ -80,24 +72,13 @@
     <ion-row *ngIf="currentSelection!='Available' && courseUserList!=null">
         <ion-col col-12 col-md-6 col-lg-6 *ngFor="let courseUser of courseUserList">
             <ion-card class="text-center">
-                <ion-card-header><h1>{{courseUser.course.nombre}}</h1></ion-card-header>
+                <ion-card-header (click)="clickCourse(courseUser.course, courseUser)"><h3>
+                    {{courseUser.course.nombre}}</h3></ion-card-header>
                 <ion-card-content>
-                    <ion-row>
-                        <ion-col col-12><img src="./assets/imgs/course.jpg"/></ion-col>
-                    </ion-row>
-
-                    <ion-row>
-                        <ion-col col-12>{{courseUser.course.contenido}}</ion-col>
-                    </ion-row>
-
-
-                    <ion-row *ngIf="currentSelection=='Registered'">
-                        <ion-col col-12>
-                            <button ion-button [block]="true" (click)="complete(courseUser.id, courseUser.course)">
-                                Complete
-                            </button>
-                        </ion-col>
-                    </ion-row>
+                    <button *ngIf="currentSelection=='Registered'" ion-button [block]="true"
+                            (click)="complete(courseUser.id, courseUser.course)">
+                        Complete
+                    </button>
                 </ion-card-content>
             </ion-card>
         </ion-col>

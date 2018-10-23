@@ -37,7 +37,7 @@ export class MyApp {
                             this.nav.setRoot(LoginPage, {user: this.user});
                         } else {
                             StaticConstantsService.auth = auth;
-                            this.nav.setRoot(ChallengeListPage, {
+                            this.nav.setRoot(CourceListPage, {
                                 user: this.user
                             });
                         }

@@ -1,3 +1,5 @@
+import {Attachment} from "./Attachment";
+
 export class Course {
     id: number;
     created_at: Date;
@@ -6,4 +8,5 @@ export class Course {
     contenido: string;
     puntos: string;
 
+    attachments: Attachment[] = [];
 }

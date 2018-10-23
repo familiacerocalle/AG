@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>courseDetails</ion-title>
+        <ion-title>Course Details</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,40 @@
 
 <ion-content padding>
 
+    <ion-card>
+        <ion-card-content>
+            Name
+            <br>
+            <div class="font-1-5">{{course.nombre}}</div>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            Description<br>
+            <div class="font-1-5">{{course.contenido}}</div>
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="course.attachments!=null">
+        <ion-card *ngFor="let attachment of course.attachments">
+            <img src="https://gryphus-web-dev.herokuapp.com{{attachment.file.url}}">
+        </ion-card>
+    </div>
+
+    <ion-card *ngIf="course.course_user!=null">
+        <ion-card-content>
+            <div *ngIf="course.course_user.fechainicio!=null">
+                Start date<br>
+                <div class="font-1-5">{{course.course_user.fechainicio}}</div>
+            </div>
+            <div *ngIf="course.course_user.fechafin!=null">End date<br>
+                <div class="font-1-5">{{course.course_user.fechafin}}</div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <button ion-button [block]="true" (click)="register(course)" *ngIf="courseStatus=='Available'">Register
+    </button>
+    <button ion-button [block]="true" (click)="complete(course.course_user.id)"
+            *ngIf="course.course_user!=null && courseStatus=='Registered'">Complete
+    </button>
 </ion-content>

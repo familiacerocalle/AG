@@ -5,6 +5,7 @@ import {Course} from "../../providers/models/Course";
 import {CourseUser} from "../../providers/models/CourseUser";
 import {User} from "../../providers/models/User";
 import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
+import {CourseDetailsPage} from "../course-details/course-details";
 
 /**
  * Generated class for the CourceListPage page.
@@ -28,7 +29,10 @@ export class CourceListPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
         console.log("token : " + StaticConstantsService.auth);
         this.user = this.navParams.get("user");
-        this.changeSelection("Available")
+        if (this.navParams.get("currentSelection") != null) {
+            this.currentSelection = this.navParams.get("currentSelection");
+        }
+        this.changeSelection(this.currentSelection);
     }
 
     changeSelection(selection: string) {
@@ -84,6 +88,15 @@ export class CourceListPage {
         courseUser.id = courseUserId;
         this.shWeb.post("course_users/finalizarcurso", courseUser).then((data: CourseUser) => {
             this.changeSelection("Completed");
+        });
+    }
+
+    clickCourse(course: Course, courseUser: CourseUser) {
+        this.navCtrl.push(CourseDetailsPage, {
+            courseStatus: this.currentSelection,
+            id: course.id,
+            user: this.user,
+            courseUser: courseUser
         });
     }
 }
