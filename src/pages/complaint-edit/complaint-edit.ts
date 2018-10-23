@@ -31,6 +31,9 @@ export class ComplaintEditPage {
         if (this.navParams.get("complaint") != null) {
             this.complaint = this.navParams.get("complaint");
         }
+        if (this.complaint.complaint_type_id == null && this.complaintTypeList == null && this.complaintTypeList.length > 0) {
+            this.complaint.complaint_type_id = this.complaintTypeList[0].id;
+        }
 
         if (this.complaint.attachments == null) {
             this.complaint.attachments = [];
@@ -43,7 +46,10 @@ export class ComplaintEditPage {
             let request: any = {};
             request.complaint = this.complaint;
             this.shWeb.post("complaints", request).then((complaint: Complaint) => {
+                this.complaint.id = complaint.id;
+                this.complaint.created_at = complaint.created_at;
                 this.complaintList.unshift(complaint);
+                this.attachComplaintToType();
                 this.navCtrl.pop();
             });
         } else {
@@ -51,13 +57,23 @@ export class ComplaintEditPage {
             request.complaint = this.complaint;
 
             if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.complaint.files = this.complaint.attachments;
+                request.complaint.files = this.complaint.attachments[0].file.url;
                 this.complaint.attachments = null;
             }
             this.shWeb.put("complaints/" + this.complaint.id, request).then((complaint: Complaint) => {
+                this.complaint.id = complaint.id;
+                this.complaint.created_at = complaint.created_at;
+                this.attachComplaintToType();
                 this.navCtrl.pop();
             });
         }
     }
 
+    attachComplaintToType() {
+        for (let complaintType of this.complaintTypeList) {
+            if (this.complaint.complaint_type_id == complaintType.id) {
+                this.complaint.complaintType = complaintType;
+            }
+        }
+    }
 }

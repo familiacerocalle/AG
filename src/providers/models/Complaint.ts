@@ -1,5 +1,6 @@
 import {ComplaintType} from "./ComplaintType";
 import {Attachment} from "./Attachment";
+import {ComplaintFile} from "./ComplaintFile";
 
 export class Complaint {
     id: number;
@@ -12,4 +13,5 @@ export class Complaint {
 
     complaintType: ComplaintType;
     attachments: Attachment[];
+    complaintfiles: ComplaintFile[] = [];
 }

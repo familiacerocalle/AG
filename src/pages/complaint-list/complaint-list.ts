@@ -5,7 +5,6 @@ import {ShWeb} from "../../providers/sh-web/sh_web";
 import {Complaint} from "../../providers/models/Complaint";
 import {ComplaintDetailsPage} from "../complaint-details/complaint-details";
 import {ComplaintType} from "../../providers/models/ComplaintType";
-import {ComplaintEditPage} from "../complaint-edit/complaint-edit";
 
 /**
  * Generated class for the ComplaintListPage page.
@@ -59,11 +58,7 @@ export class ComplaintListPage {
 
 
     clickComplaint(complaint: Complaint) {
-        let page: any = ComplaintDetailsPage;
-        if (complaint == null) {
-            page = ComplaintEditPage;
-        }
-        this.navCtrl.push(page, {
+        this.navCtrl.push(ComplaintDetailsPage, {
             user: this.user,
             complaint: complaint,
             complaintList: this.complaintList,

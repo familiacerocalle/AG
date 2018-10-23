@@ -6,6 +6,8 @@ import {ComplaintType} from "../../providers/models/ComplaintType";
 import {ShWeb} from "../../providers/sh-web/sh_web";
 import {ComplaintEditPage} from "../complaint-edit/complaint-edit";
 import {ShUtils} from "../../providers/utils/ShUtils";
+import {ComplaintFile} from "../../providers/models/ComplaintFile";
+import {ComplaintFileEditPage} from "../complaint-file-edit/complaint-file-edit";
 
 /**
  * Generated class for the ComplaintDetailsPage page.
@@ -40,6 +42,9 @@ export class ComplaintDetailsPage {
         if (this.complaint.attachments == null) {
             this.complaint.attachments = [];
         }
+        if (this.complaint.complaintfiles == null) {
+            this.complaint.complaintfiles = [];
+        }
     }
 
     saveComplaint() {
@@ -48,7 +53,7 @@ export class ComplaintDetailsPage {
             let request: any = {};
             request.complaint = this.complaint;
             if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.complaint.files = this.complaint.attachments;
+                request.files = this.complaint.attachments[0].file.url;
                 this.complaint.attachments = null;
             }
             this.shWeb.post("complaints", request).then((complaint: Complaint) => {
@@ -60,7 +65,7 @@ export class ComplaintDetailsPage {
             request.complaint = this.complaint;
 
             if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.complaint.files = this.complaint.attachments;
+                request.files = this.complaint.attachments[0].file.url;
                 this.complaint.attachments = null;
             }
             this.shWeb.put("complaints/" + this.complaint.id, request).then((complaint: Complaint) => {
@@ -73,7 +78,12 @@ export class ComplaintDetailsPage {
         this.navCtrl.push(ComplaintEditPage, {
             complaint: this.complaint,
             user: this.user,
-            complaintTypeList: this.complaintTypeList
+            complaintTypeList: this.complaintTypeList,
+            complaintList: this.complaintList
         })
+    }
+
+    complaintFile(complaintFile: ComplaintFile) {
+        this.navCtrl.push(ComplaintFileEditPage, {complaintFile: complaintFile, complaint: this.complaint});
     }
 }

@@ -19,7 +19,10 @@
 
     <ion-card>
         <ion-card-content>
-            <div>{{complaint.created_at}}<span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
+            <div>
+                <span *ngIf="complaint.created_at!=null">{{complaint.created_at}}</span>
+                <span *ngIf="complaint.created_at==null">Now</span>
+                <span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
             </div>
             <hr>
             {{complaint.descripcion}}
@@ -34,4 +37,17 @@
                                    [attachmentList]="complaint.attachments"
                                    [ref_type]="'Complaint'"></page-attachment-component>
     </div>
+
+    <div *ngIf="complaint.complaintfiles!=null">
+        <ion-card *ngFor="let complaintFile of complaint.complaintfiles">
+            {{complaintFile.created_at}}<br>
+            {{complaintFile.description}}<br>
+            <img *ngIf="complaintFile.attachments[0]!=null
+            && complaintFile.attachments[0].file!=null
+            && complaintFile.attachments[0].file.url!=null"
+                 src="{{complaintFile.attachments[0].file.url}}">
+        </ion-card>
+
+    </div>
+    <button class="float-right" ion-button (click)="complaintFile(null)">Add new Complaint file</button>
 </ion-content>
