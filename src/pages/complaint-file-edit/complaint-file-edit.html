@@ -24,12 +24,12 @@
         <hr>
         <hr>
         <h4>Attachments</h4>
-        <page-attachment-component (change)="saveEdit()" [editAllowed]="true" [loggedInPost]="user"
+        <page-attachment-component (change)="saveEditComplaintFile()" [editAllowed]="true" [loggedInPost]="user"
                                    [ref_id]="complaintFile.id"
                                    [attachmentList]="complaintFile.attachments"
                                    [ref_type]="'ComplaintFile'"></page-attachment-component>
     </div>
-    <button ion-button [block]="true" (click)="saveEdit()">Save</button>
+    <button ion-button [block]="true" (click)="saveEditComplaintFile()">Save</button>
 
     <button ion-button color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint file</button>
 

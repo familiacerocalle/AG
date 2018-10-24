@@ -37,7 +37,7 @@ export class ComplaintFileEditPage {
         }
     }
 
-    saveEdit() {
+    saveEditComplaintFile() {
         this.complaintFile.complaint_id = this.complaint.id;
         this.complaintFile.user_id = this.user.id;
         if (this.complaintFile.id == null) {
@@ -46,6 +46,12 @@ export class ComplaintFileEditPage {
                 this.navCtrl.pop();
             });
         } else {
+            let request: any = {};
+            request.complaintfile = this.complaintFile;
+            if (this.complaintFile.attachments.length > 0) {
+                request.complaintfile.archive = this.complaintFile.attachments[this.complaintFile.attachments.length - 1].file.url;
+                console.log("request : " + request.complaintfile.archive.substr(0, 50));
+            }
             this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
                 this.navCtrl.pop();

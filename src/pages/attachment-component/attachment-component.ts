@@ -196,7 +196,8 @@ export class AttachmentComponentPage {
         newAttachment.entity_id = this.ref_id;
         newAttachment.file_name = fileName;
         newAttachment.file = new AttachmentFile();
-        newAttachment.file.url = 'data:image/png;base64,' + url;
+        // newAttachment.file.url = 'data:image/png;base64,' + url;
+        newAttachment.file.url = url;
         newAttachment.entity_type = this.ref_type;
         this.attachmentList.push(newAttachment);
         this.change.emit(newAttachment);
