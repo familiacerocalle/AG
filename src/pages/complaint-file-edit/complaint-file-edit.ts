@@ -33,13 +33,17 @@ export class ComplaintFileEditPage {
     }
 
     saveEdit() {
+        this.complaintFile.complaint_id = this.complaint.id;
+        this.complaintFile.user_id = this.user.id;
         if (this.complaintFile.id == null) {
-            this.shWeb.post("complaintfiles", this.complaintFile).then((data: ComplaintFile) => {
+            this.shWeb.post("complaintfiles", {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
+                this.navCtrl.pop();
             });
         } else {
-            this.shWeb.put("complaintfiles/" + this.complaintFile.id, this.complaintFile).then((data: ComplaintFile) => {
+            this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
+                this.navCtrl.pop();
             });
         }
     }

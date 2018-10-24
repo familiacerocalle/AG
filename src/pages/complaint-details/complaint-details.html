@@ -44,7 +44,7 @@
         <button class="float-right" ion-button (click)="complaintFile(null)">Add new Complaint file</button>
         <ion-card *ngFor="let complaintFile of complaint.complaintfiles">
             {{complaintFile.created_at}}<br>
-            {{complaintFile.description}}<br>
+            {{complaintFile.descripcion}}<br>
             <img *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
             && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1])"

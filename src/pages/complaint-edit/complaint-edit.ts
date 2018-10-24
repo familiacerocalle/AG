@@ -55,7 +55,6 @@ export class ComplaintEditPage {
         } else {
             let request: any = {};
             request.complaint = this.complaint;
-
             if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
                 request.complaint.files = this.complaint.attachments[0].file.url;
                 this.complaint.attachments = null;
