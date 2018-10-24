@@ -22,27 +22,38 @@
 
 
 <ion-content padding class="text-center">
-    <h1>{{user.nombre}}</h1>
-    <ion-row>
-        <ion-col col-4 class="sh-border">Email</ion-col>
-        <ion-col col-8 class="sh-border"><h4>{{user.email}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-4 class="sh-border">Sir Name</ion-col>
-        <ion-col col-8 class="sh-border"><h4>{{user.primerApellido}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-4 class="sh-border">Second Name</ion-col>
-        <ion-col col-8 class="sh-border"><h4>{{user.segundoApellido}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-4 class="sh-border">Joining date</ion-col>
-        <ion-col col-8 class="sh-border"><h4>{{user.created_at}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-4 class="sh-border">Language</ion-col>
-        <ion-col col-8 class="sh-border"><h4>{{user.locale}}</h4></ion-col>
-    </ion-row>
 
+    <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Sir Name</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.primerApellido"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Second Name</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.segundoApellido"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Joining date</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.created_at"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Language</ion-label>
+        <ion-input [readonly]="!editable" [(ngModel)]="user.locale"></ion-input>
+    </ion-item>
+
+
+    <button ion-button *ngIf="editable==false" (click)="edit()" color="primary">Edit</button>
+    <button ion-button *ngIf="editable==true" (click)="update()" color="secondary">Update</button>
     <button ion-button (click)="logout()" color="danger">Logout</button>
 </ion-content>
