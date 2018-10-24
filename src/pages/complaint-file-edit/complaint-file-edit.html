@@ -20,15 +20,25 @@
         <ion-input [(ngModel)]="complaintFile.descripcion"></ion-input>
     </ion-item>
 
-    <div *ngIf="complaintFile.id!=null">
-        <hr>
-        <hr>
-        <h4>Attachments</h4>
-        <page-attachment-component (change)="saveEditComplaintFile()" [editAllowed]="true" [loggedInPost]="user"
-                                   [ref_id]="complaintFile.id"
-                                   [attachmentList]="complaintFile.attachments"
-                                   [ref_type]="'ComplaintFile'"></page-attachment-component>
+
+    <hr>
+    <hr>
+    <h4>Attachments</h4>
+    <div *ngIf="complaintFile.id!=null && complaintFile.attachments!=null">
+        <ion-card *ngFor="let attachment of complaintFile.attachments">
+            <img src="{{attachment.file.url}}">
+            <img src="{{attachment.file.url}}"
+                 *ngIf="attachment.file && attachment.file.url && ['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1]) >= 0">
+            <video *ngIf="attachment && attachment.file && attachment.file.url && 'mp4' == attachment.file.url.split('.')[1]"
+                   controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                <source src="{{attachment.file.url}}" type="video/mp4"/>
+            </video>
+        </ion-card>
     </div>
+    <button class="float-right" ion-button (click)="addAttachment()">Add Attachment</button>
+    <input #input_file_id type="file"
+           (change)="onChangeAttachment($event)" style="display: none"/>
+
     <button ion-button [block]="true" (click)="saveEditComplaintFile()">Save</button>
 
     <button ion-button color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint file</button>

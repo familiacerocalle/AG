@@ -1,11 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {Complaint} from "../../providers/models/Complaint";
 import {User} from "../../providers/models/User";
 import {ComplaintType} from "../../providers/models/ComplaintType";
 import {ShWeb} from "../../providers/sh-web/sh_web";
 import {ComplaintEditPage} from "../complaint-edit/complaint-edit";
-import {ShUtils} from "../../providers/utils/ShUtils";
 import {ComplaintFile} from "../../providers/models/ComplaintFile";
 import {ComplaintFileEditPage} from "../complaint-file-edit/complaint-file-edit";
 
@@ -27,6 +26,7 @@ export class ComplaintDetailsPage {
     complaint: Complaint = new Complaint();
     complaintList: Complaint[] = [];
     complaintTypeList: ComplaintType[] = [];
+    @ViewChild('input_file_id') fileElement: ElementRef;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private alertCtrl: AlertController) {
         this.user = this.navParams.get("user");
@@ -47,31 +47,40 @@ export class ComplaintDetailsPage {
         }
     }
 
-    saveComplaint() {
-        this.complaint.user_id = this.user.id;
-        if (this.complaint.id == null) {
-            let request: any = {};
-            request.complaint = this.complaint;
-            if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.files = this.complaint.attachments[0].file.url;
-                this.complaint.attachments = null;
-            }
-            this.shWeb.post("complaints", request).then((complaint: Complaint) => {
-                ShUtils.saveUnique(this.complaintList, this.complaint);
-                this.complaint = complaint;
-            });
-        } else {
-            let request: any = {};
-            request.complaint = this.complaint;
+    saveAttachment(base64: string) {
+        let request: any = {};
+        request.complaint = this.complaint;
+        request.files = base64;
+        this.shWeb.put("complaints/" + this.complaint.id, request).then((complaint: Complaint) => {
+            this.complaint = complaint;
+        });
+    }
 
-            if (this.complaint.attachments != null && this.complaint.attachments.length > 0) {
-                request.files = this.complaint.attachments[0].file.url;
-                this.complaint.attachments = null;
-            }
-            this.shWeb.put("complaints/" + this.complaint.id, request).then((complaint: Complaint) => {
-                this.complaint = complaint;
-            });
+    onChangeAttachment($event: any) {
+
+        let input: any = this.fileElement.nativeElement;
+        if (!input) {
+            alert("File element not found");
         }
+        else if (!input.files) {
+            alert("Browser don't support file type");
+        }
+        else if (!input.files[0]) {
+            alert("No file selected");
+        }
+        else {
+            for (let fileSh of $event.target.files) {
+                let myReader: FileReader = new FileReader();
+                myReader.addEventListener('loadend', (loadEvent: any) => {
+                    this.saveAttachment(loadEvent.target.result);
+                });
+                myReader.readAsDataURL(fileSh);
+            }
+        }
+    }
+
+    addAttachment() {
+        this.fileElement.nativeElement.click();
     }
 
     editComplaint() {

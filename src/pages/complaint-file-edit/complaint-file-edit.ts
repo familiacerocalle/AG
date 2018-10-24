@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {ShWeb} from "../../providers/sh-web/sh_web";
 import {ComplaintFile} from "../../providers/models/ComplaintFile";
@@ -24,6 +24,7 @@ export class ComplaintFileEditPage {
     complaint: Complaint;
     user: User;
     complaintFileList: ComplaintFile[] = [];
+    @ViewChild('input_file_id') fileElement: ElementRef;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private alertCtrl: AlertController) {
         this.complaint = this.navParams.get("complaint");
@@ -31,10 +32,18 @@ export class ComplaintFileEditPage {
         this.user = this.navParams.get("user");
         if (this.navParams.get("complaintFile") != null) {
             this.complaintFile = this.navParams.get("complaintFile");
+            this.getComplaintFile();
         }
         if (this.complaintFile.attachments == null) {
             this.complaintFile.attachments = [];
         }
+    }
+
+    getComplaintFile() {
+        this.shWeb.get("complaintsfiles/" + this.complaintFile.id).then((data: ComplaintFile) => {
+            this.complaintFile.attachments = data.attachments;
+            this.complaintFile.descripcion = data.descripcion;
+        });
     }
 
     saveEditComplaintFile() {
@@ -43,18 +52,14 @@ export class ComplaintFileEditPage {
         if (this.complaintFile.id == null) {
             this.shWeb.post("complaintfiles", {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
-                this.navCtrl.pop();
+
             });
         } else {
             let request: any = {};
             request.complaintfile = this.complaintFile;
-            if (this.complaintFile.attachments.length > 0) {
-                request.complaintfile.archivo = this.complaintFile.attachments[this.complaintFile.attachments.length - 1].file.url;
-                this.complaintFile.attachments = null;
-            }
             this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
-                this.navCtrl.pop();
+
             });
         }
     }
@@ -85,4 +90,43 @@ export class ComplaintFileEditPage {
         confirm.present();
 
     }
+
+
+    saveAttachment(base64: string) {
+        let request: any = {};
+        request.complaintfile = this.complaintFile;
+        request.archivo = base64;
+        this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
+            ShUtils.saveUnique(this.complaint.complaintfiles, data);
+            this.complaintFile = data;
+        });
+    }
+
+    onChangeAttachment($event: any) {
+
+        let input: any = this.fileElement.nativeElement;
+        if (!input) {
+            alert("File element not found");
+        }
+        else if (!input.files) {
+            alert("Browser don't support file type");
+        }
+        else if (!input.files[0]) {
+            alert("No file selected");
+        }
+        else {
+            for (let fileSh of $event.target.files) {
+                let myReader: FileReader = new FileReader();
+                myReader.addEventListener('loadend', (loadEvent: any) => {
+                    this.saveAttachment(loadEvent.target.result);
+                });
+                myReader.readAsDataURL(fileSh);
+            }
+        }
+    }
+
+    addAttachment() {
+        this.fileElement.nativeElement.click();
+    }
+
 }
