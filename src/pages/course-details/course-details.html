@@ -28,11 +28,6 @@
             <div class="font-1-5">{{course.contenido}}</div>
         </ion-card-content>
     </ion-card>
-    <div *ngIf="course.attachments!=null">
-        <ion-card *ngFor="let attachment of course.attachments">
-            <img src="{{attachment.file.url}}">
-        </ion-card>
-    </div>
 
     <ion-card *ngIf="course.course_user!=null">
         <ion-card-content>
@@ -45,6 +40,15 @@
             </div>
         </ion-card-content>
     </ion-card>
+
+    <div *ngIf="course.attachments!=null">
+        <ion-card *ngFor="let attachment of course.attachments">
+            <img src="{{attachment.file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1])">
+            <video *ngIf="'mp4' == attachment.file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+              <source src="{{attachment.file.url}}" type="video/mp4" />
+            </video>
+        </ion-card>
+    </div>
 
     <button ion-button [block]="true" (click)="register(course)" *ngIf="courseStatus=='Available'">Register
     </button>
