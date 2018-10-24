@@ -9,10 +9,9 @@
            (change)="onChangeAttachment($event)" multiple style="display: none"/>
 
     <button *ngIf="editAllowed==true" class="float-right" ion-button (click)="addAttachment()">Add attachment</button>
-
-    <div *ngIf="attachmentList!=null && shUtils.getCount(attachmentList)==1"
+    <div *ngIf="attachmentList!=null"
          (click)="openAttachment(attachmentList[0])">
-        <img src="{{attachmentList[0].file.url}}" *ngIf="attachmentList[0] && attachmentList[0].file && attachmentList[0].file.url && ['png', 'jpeg'].indexOf(attachmentList[0].file.url.split('.')[1])">
+        <img src="{{attachmentList[0].file.url}}" *ngIf="attachmentList[0] && attachmentList[0].file && attachmentList[0].file.url && ['png', 'jpeg'].indexOf(attachmentList[0].file.url.split('.')[1]) >= 0">
         <video *ngIf="attachmentList[0] && attachmentList[0].file && attachmentList[0].file.url && 'mp4' == attachmentList[0].file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
           <source src="{{attachmentList[0].file.url}}" type="video/mp4" />
         </video>

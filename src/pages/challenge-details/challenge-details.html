@@ -40,7 +40,7 @@
 
     <div *ngIf="challenge.attachments!=null">
         <ion-card *ngFor="let attachment of challenge.attachments">
-            <img src="{{attachment.file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1])">
+            <img src="{{attachment.file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1]) >= 0">
             <video *ngIf="'mp4' == attachment.file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
               <source src="{{attachment.file.url}}" type="video/mp4" />
             </video>

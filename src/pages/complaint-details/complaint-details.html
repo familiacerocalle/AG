@@ -50,7 +50,7 @@
                 {{complaintFile.descripcion}}<br>
                 <img *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
-            && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1])"
+            && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1]) >= 0"
                      src="{{complaintFile.archivo.url}}">
                 <video *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
