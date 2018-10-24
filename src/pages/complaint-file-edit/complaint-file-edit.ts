@@ -49,8 +49,8 @@ export class ComplaintFileEditPage {
             let request: any = {};
             request.complaintfile = this.complaintFile;
             if (this.complaintFile.attachments.length > 0) {
-                request.complaintfile.archive = this.complaintFile.attachments[this.complaintFile.attachments.length - 1].file.url;
-                console.log("request : " + request.complaintfile.archive.substr(0, 50));
+                request.complaintfile.archivo = this.complaintFile.attachments[this.complaintFile.attachments.length - 1].file.url;
+                this.complaintFile.attachments = null;
             }
             this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
