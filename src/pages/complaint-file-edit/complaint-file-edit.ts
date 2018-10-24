@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {ShWeb} from "../../providers/sh-web/sh_web";
 import {ComplaintFile} from "../../providers/models/ComplaintFile";
 import {Complaint} from "../../providers/models/Complaint";
@@ -23,9 +23,11 @@ export class ComplaintFileEditPage {
     complaintFile: ComplaintFile = new ComplaintFile();
     complaint: Complaint;
     user: User;
+    complaintFileList: ComplaintFile[] = [];
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private alertCtrl: AlertController) {
         this.complaint = this.navParams.get("complaint");
+        this.complaintFileList = this.navParams.get("complaintFileList");
         this.user = this.navParams.get("user");
         if (this.navParams.get("complaintFile") != null) {
             this.complaintFile = this.navParams.get("complaintFile");
@@ -48,4 +50,30 @@ export class ComplaintFileEditPage {
         }
     }
 
+
+    deleteComplaint() {
+        const confirm = this.alertCtrl.create({
+            title: 'Use this lightsaber?',
+            message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+            buttons: [
+                {
+                    text: 'Disagree',
+                    handler: () => {
+                        console.log('Disagree clicked');
+                    }
+                },
+                {
+                    text: 'Agree',
+                    handler: () => {
+                        this.shWeb.delete("complaintfiles/" + this.complaint.id).then(() => {
+                            this.complaintFileList.splice(this.complaintFileList.indexOf(this.complaintFile), 1);
+                            this.navCtrl.pop();
+                        })
+                    }
+                }
+            ]
+        });
+        confirm.present();
+
+    }
 }

@@ -41,6 +41,26 @@ export class ShWeb {
         });
     }
 
+    delete(url: string) {
+        return new Promise(resolve => {
+            let shLoader = this.loadingController.create({
+                content: "Delete : " + url,
+                duration: 100000
+            });
+            shLoader.present();
+            this.delete2(url).subscribe(data => {
+                if (shLoader != null) {
+                    shLoader.dismiss();
+                    shLoader.onDidDismiss(() => {
+                        resolve(data);
+                    });
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
     post(url: string, body: any) {
         // body = "'" + JSON.stringify(body) + "'";
         body = JSON.stringify(body);
@@ -126,6 +146,21 @@ export class ShWeb {
             })
         };
         return this.httpClient.put(StaticConstantsService.getServerAddress() + url, body, httpOptions).pipe(
+            catchError(this.handleError('post', []))
+        );
+    }
+
+
+    private delete2(url: string): Observable<any> {
+        console.log("delete url  : " + StaticConstantsService.getServerAddress() + url);
+        console.log("token  : " + StaticConstantsService.auth);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Token token=' + StaticConstantsService.auth
+            })
+        };
+        return this.httpClient.delete(StaticConstantsService.getServerAddress() + url, httpOptions).pipe(
             catchError(this.handleError('post', []))
         );
     }
