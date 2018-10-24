@@ -32,6 +32,9 @@ export class ComplaintFileEditPage {
         if (this.navParams.get("complaintFile") != null) {
             this.complaintFile = this.navParams.get("complaintFile");
         }
+        if (this.complaintFile.attachments == null) {
+            this.complaintFile.attachments = [];
+        }
     }
 
     saveEdit() {

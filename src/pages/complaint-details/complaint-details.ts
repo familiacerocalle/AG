@@ -83,7 +83,7 @@ export class ComplaintDetailsPage {
         })
     }
 
-    complaintFile(complaintFile: ComplaintFile) {
+    clickComplaintFile(complaintFile: ComplaintFile) {
         this.navCtrl.push(ComplaintFileEditPage, {
             complaintFile: complaintFile,
             complaint: this.complaint,
@@ -94,8 +94,8 @@ export class ComplaintDetailsPage {
 
     deleteComplaint() {
         const confirm = this.alertCtrl.create({
-            title: 'Use this lightsaber?',
-            message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+            title: 'Delete complaint?',
+            message: 'Are you sure you cant to delete complaint?',
             buttons: [
                 {
                     text: 'Disagree',

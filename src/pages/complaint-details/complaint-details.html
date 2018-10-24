@@ -37,26 +37,31 @@
                                    [attachmentList]="complaint.attachments"
                                    [ref_type]="'Complaint'"></page-attachment-component>
     </div>
-        <hr>
-        <hr>
+    <hr>
+    <hr>
     <div *ngIf="complaint.complaintfiles!=null">
         <h4>Complaint Files</h4>
-        <button class="float-right" ion-button (click)="complaintFile(null)">Add new Complaint file</button>
-        <ion-card *ngFor="let complaintFile of complaint.complaintfiles">
-            {{complaintFile.created_at}}<br>
-            {{complaintFile.descripcion}}<br>
-            <img *ngIf="complaintFile.archivo!=null
+        <button class="float-right" color="secondary" ion-button (click)="clickComplaintFile(null)">Add new Complaint
+            file
+        </button>
+        <ion-card *ngFor="let complaintFile of complaint.complaintfiles" (click)="clickComplaintFile(complaintFile)">
+            <ion-card-content>
+                {{complaintFile.created_at}}<br>
+                {{complaintFile.descripcion}}<br>
+                <img *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
             && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1])"
-                 src="{{complaintFile.archivo.url}}">
-            <video *ngIf="complaintFile.archivo!=null
+                     src="{{complaintFile.archivo.url}}">
+                <video *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
-            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
-               <source src="{{complaintFile.archivo.url}}" type="video/mp4" />
-            </video>
+            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[1]" controls="controls"
+                       preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                    <source src="{{complaintFile.archivo.url}}" type="video/mp4"/>
+                </video>
+            </ion-card-content>
         </ion-card>
 
     </div>
 
-    <button ion-button color="danger" (click)="deleteComplaint()">Delete</button>
+    <button ion-button color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint</button>
 </ion-content>
