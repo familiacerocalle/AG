@@ -56,8 +56,8 @@ export class ComplaintFileEditPage {
 
     deleteComplaint() {
         const confirm = this.alertCtrl.create({
-            title: 'Use this lightsaber?',
-            message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+            title: 'Delete complaint file?',
+            message: 'Are you sure to delete this?',
             buttons: [
                 {
                     text: 'Disagree',
