@@ -26,12 +26,6 @@
         </ion-card-content>
     </ion-card>
 
-    <div *ngIf="challenge.attachments!=null">
-        <ion-card *ngFor="let attachment of challenge.attachments">
-            <img src="{{attachment.file.url}}">
-        </ion-card>
-    </div>
-
     <ion-card *ngIf="challenge.challenge_user!=null">
         <ion-card-content>
             <div *ngIf="challenge.challenge_user.fechainicio!=null">
@@ -43,6 +37,15 @@
             </div>
         </ion-card-content>
     </ion-card>
+
+    <div *ngIf="challenge.attachments!=null">
+        <ion-card *ngFor="let attachment of challenge.attachments">
+            <img src="{{attachment.file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1])">
+            <video *ngIf="'mp4' == attachment.file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+              <source src="{{attachment.file.url}}" type="video/mp4" />
+            </video>
+        </ion-card>
+    </div>
 
     <button ion-button [block]="true" (click)="register(challenge)" *ngIf="challengeStatus=='Available'">Register
     </button>

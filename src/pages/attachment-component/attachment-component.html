@@ -5,23 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-card>
-
     <input #input_file_id type="file"
            (change)="onChangeAttachment($event)" multiple style="display: none"/>
+
+    <button *ngIf="editAllowed==true" class="float-right" ion-button (click)="addAttachment()">Add attachment</button>
+
     <div *ngIf="attachmentList!=null && shUtils.getCount(attachmentList)==1"
          (click)="openAttachment(attachmentList[0])">
-        <img src="{{attachmentList[0].file.url}}" *ngIf="attachmentList[0].type=='image'">
-        <ion-card padding class="light-blue-color-bg" *ngIf="attachmentList[0].type!='image'">
-            {{attachmentList[0].file_name}}
-        </ion-card>
+        <img src="{{attachmentList[0].file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachmentList[0].file.url.split('.')[1])">
+        <video *ngIf="'mp4' == attachmentList[0].file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+          <source src="{{attachmentList[0].file.url}}" type="video/mp4" />
+        </video>
     </div>
-    <ion-slides pager *ngIf="attachmentList!=null && shUtils.getCount(attachmentList)>1">
-        <ion-slide *ngFor="let attachment of attachmentList" (click)="openAttachment(attachment)">
-            <img src="{{attachment.file.url}}" *ngIf="attachment.type=='image'">
-            <ion-card padding class="light-blue-color-bg" *ngIf="attachment.type!='image'">{{attachment.file_name}}
-            </ion-card>
-        </ion-slide>
-    </ion-slides>
-    <span *ngIf="editAllowed==true" class="float-right secondary-color margin10" (click)="addAttachment()">Add attachment
-  </span>
 </ion-card>

@@ -37,17 +37,24 @@
                                    [attachmentList]="complaint.attachments"
                                    [ref_type]="'Complaint'"></page-attachment-component>
     </div>
-
+        <hr>
+        <hr>
     <div *ngIf="complaint.complaintfiles!=null">
+        <h4>Complaint Files</h4>
+        <button class="float-right" ion-button (click)="complaintFile(null)">Add new Complaint file</button>
         <ion-card *ngFor="let complaintFile of complaint.complaintfiles">
             {{complaintFile.created_at}}<br>
             {{complaintFile.description}}<br>
-            <img *ngIf="complaintFile.attachments[0]!=null
-            && complaintFile.attachments[0].file!=null
-            && complaintFile.attachments[0].file.url!=null"
-                 src="{{complaintFile.attachments[0].file.url}}">
+            <img *ngIf="complaintFile.archivo!=null
+            && complaintFile.archivo!=null
+            && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1])"
+                 src="{{complaintFile.archivo.url}}">
+            <video *ngIf="complaintFile.archivo!=null
+            && complaintFile.archivo!=null
+            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+               <source src="{{complaintFile.archivo.url}}" type="video/mp4" />
+            </video>
         </ion-card>
 
     </div>
-    <button class="float-right" ion-button (click)="complaintFile(null)">Add new Complaint file</button>
 </ion-content>
