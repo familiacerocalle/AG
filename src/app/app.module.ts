@@ -19,8 +19,6 @@ import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {ShDbStorage} from "../providers/sh-web/sh_db";
 import {ProfilePage} from "../pages/profile/profile";
-import {AttachmentComponentPage} from "../pages/attachment-component/attachment-component";
-import {AttachmentPopoverPage} from "../pages/attachment-popover/attachment-popover";
 import {Camera} from '@ionic-native/camera';
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
@@ -38,8 +36,6 @@ import {ComplaintFileEditPage} from "../pages/complaint-file-edit/complaint-file
         LoginPage,
         SignupPage,
         ProfilePage,
-        AttachmentComponentPage,
-        AttachmentPopoverPage,
         ComplaintEditPage,
         ComplaintFileEditPage
     ],
@@ -66,8 +62,6 @@ import {ComplaintFileEditPage} from "../pages/complaint-file-edit/complaint-file
         LoginPage,
         SignupPage,
         ProfilePage,
-        AttachmentComponentPage,
-        AttachmentPopoverPage,
         ComplaintEditPage,
         ComplaintFileEditPage
     ],
