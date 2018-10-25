@@ -34,8 +34,8 @@
         <h4>Attachments</h4>
         <ion-card *ngFor="let attachment of complaint.attachments">
             <img src="{{attachment.file.url}}"
-                 *ngIf="attachment.file && attachment.file.url && ['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1]) >= 0">
-            <video *ngIf="attachment && attachment.file && attachment.file.url && 'mp4' == attachment.file.url.split('.')[1]"
+                 *ngIf="attachment.file && attachment.file.url && ['png', 'jpeg'].indexOf(attachment.file.url.split('.')[attachment.file.url.split('.').length-1]) >= 0">
+            <video *ngIf="attachment && attachment.file && attachment.file.url && 'mp4' == attachment.file.url.split('.')[attachment.file.url.split('.').length-1]"
                    controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
                 <source src="{{attachment.file.url}}" type="video/mp4"/>
             </video>
