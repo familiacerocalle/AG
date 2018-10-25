@@ -41,6 +41,6 @@
 
     <button ion-button [block]="true" (click)="saveEditComplaintFile()">Save</button>
 
-    <button ion-button color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint file</button>
+    <button ion-button *ngIf="complaintFile.id!=null" color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint file</button>
 
 </ion-content>

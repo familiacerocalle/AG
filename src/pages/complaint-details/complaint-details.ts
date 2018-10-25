@@ -45,6 +45,14 @@ export class ComplaintDetailsPage {
         if (this.complaint.complaintfiles == null) {
             this.complaint.complaintfiles = [];
         }
+        this.getObject();
+    }
+
+    getObject() {
+        this.shWeb.get("complaints/" + this.complaint.id).then((data: Complaint) => {
+            console.log("Course : " + JSON.stringify(data));
+            this.complaint = data;
+        });
     }
 
     saveAttachment(base64: string) {
