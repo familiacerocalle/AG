@@ -50,6 +50,8 @@ export class ComplaintEditPage {
                 this.complaint.created_at = complaint.created_at;
                 this.complaintList.unshift(complaint);
                 this.attachComplaintToType();
+                this.complaint.complaintfiles = [];
+                this.complaint.attachments = [];
                 this.navCtrl.pop();
             });
         } else {

@@ -34,6 +34,7 @@ export class ComplaintDetailsPage {
         this.complaintTypeList = this.navParams.get("complaintTypeList");
         if (this.navParams.get("complaint") != null) {
             this.complaint = this.navParams.get("complaint");
+            this.getObject();
         } else {
             this.editComplaint();
         }
@@ -44,7 +45,6 @@ export class ComplaintDetailsPage {
         if (this.complaint.complaintfiles == null) {
             this.complaint.complaintfiles = [];
         }
-        this.getObject();
     }
 
     getObject() {
