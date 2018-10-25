@@ -1,0 +1,32 @@
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title menuClose>
+
+                <ion-row>
+                    <ion-col col-9>
+                        Menu
+                    </ion-col>
+                    <ion-col col-3 class="text-right">
+                        <ion-icon name="close"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <div class="text-center" *ngIf="userLogin!=null" style="width:100%; height:auto;">
+            <h4>{{userLogin.user_login_user.user_name}}</h4>
+        </div>
+        <ion-list>
+            <ion-item class="text-right" menuClose icon-left (click)="setRoot('Course')">Course</ion-item>
+            <ion-item class="text-right" menuClose icon-left (click)="setRoot('Challenge')">Challenge</ion-item>
+            <ion-item class="text-right" menuClose icon-left (click)="setRoot('Complaint')">Complaint</ion-item>
+            <ion-item class="text-right" menuClose icon-left (click)="setRoot('Profile')">Profile</ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

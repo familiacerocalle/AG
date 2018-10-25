@@ -1,61 +1,62 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {NavController, NavParams} from "ionic-angular";
+import {User} from "../../providers/models/User";
+import {ShToast} from "../../providers/utils/ShToast";
+import {ShWeb} from "../../providers/sh-web/sh_web";
+import {SignupPage} from "../signup/signup";
+import {HttpClient} from "@angular/common/http";
+import {ShDbStorage} from "../../providers/sh-web/sh_db";
+import {CourceListPage} from "../cource-list/cource-list";
+import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 
-import { User } from '../../providers';
-import { MainPage } from '../';
-import { PrincipalPage } from '../';
-
-@IonicPage()
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+    selector: 'page-login',
+    templateUrl: 'login.html',
+    providers: [ShToast, ShWeb, ShDbStorage]
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  /*
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
-  */
-  account: {user: { email: string, password: string } } = {
-    user: {
-      email: 'test@example.com',
-      password: 'testtest'
+    user: User = new User();
+
+    constructor(private httpClient: HttpClient, private shToast: ShToast, public navCtrl: NavController, public navParams: NavParams, private shWeb: ShWeb, private shDb: ShDbStorage) {
+        // this.getDbLogin();
     }
-  };
 
-  // Our translated text strings
-  private loginErrorString: string;
+    getDbLogin() {
+        this.shDb.shGet("user").then((user: User) => {
+            if (user != null) {
+                this.user = user;
+            }
+        });
+    }
 
-  constructor(public navCtrl: NavController,
-    public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    signUpPage() {
+        this.navCtrl.setRoot(SignupPage);
+    }
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
-  }
 
-  // Attempt to login in through our User service
-  doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      //this.navCtrl.push(MainPage);
-      this.navCtrl.push(PrincipalPage, {user: resp});
-    }, (err) => {
-      //this.navCtrl.push(MainPage);
-      this.navCtrl.push(LoginPage);
-      // Unable to log in
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
-    });
-  }
+    login() {
+        this.shWeb.post("users/signin", this.user).then((user: User) => {
+            this.shDb.shPost("user", user).then(() => {
+                this.shDb.shPost("auth", user.token).then(() => {
+                    console.log("user : " + JSON.stringify(user));
+                    console.log("token : " + user.token);
+                    StaticConstantsService.auth = user.token;
+                    console.log("token2 : " + StaticConstantsService.auth);
+                    this.shToast.presentToast("Welcome to Gryphus!!");
+                    this.navCtrl.setRoot(CourceListPage, {user: user});
+                });
+            });
+        });
+    }
+
+    goToForgotPassword() {
+        // this.navCtrl.push(ForgotPasswordPage);
+    }
+
 }

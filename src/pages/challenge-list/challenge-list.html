@@ -1,0 +1,100 @@
+<!--
+  Generated template for the CourceListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon menuToggle class="font-1-5" name="md-menu"></ion-icon>
+                </ion-col>
+                <ion-col col-5>
+                    Challenges
+                </ion-col>
+                <ion-col col-6>
+                    <button *ngIf="user.primerApellido!=null && user.primerApellido=='ADMIN'" class="float-right">
+                        Create New
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-row>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Available'" [block]="true" color="secondary">Available</button>
+            <button ion-button *ngIf="currentSelection!='Available'" [clear]="true"
+                    (click)="changeSelection('Available')" color="secondary">Available
+            </button>
+        </ion-col>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Registered'" [block]="true" color="secondary">Registered
+            </button>
+            <button ion-button *ngIf="currentSelection!='Registered'" [clear]="true"
+                    (click)="changeSelection('Registered')" color="secondary">Registered
+            </button>
+        </ion-col>
+        <ion-col col-4 class="text-center">
+            <button ion-button *ngIf="currentSelection=='Completed'" [block]="true" color="secondary">Completed</button>
+            <button ion-button *ngIf="currentSelection!='Completed'" [clear]="true"
+                    (click)="changeSelection('Completed')" color="secondary">Completed
+            </button>
+        </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row *ngIf="currentSelection=='Available'">
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challenge of challengeList">
+            <ion-card class="text-center">
+                <ion-card-header (click)="clickChallenge(challenge)"><h1>{{challenge.descripcion}}</h1>
+                </ion-card-header>
+                <ion-card-content>
+
+                    <ion-row (click)="clickChallenge(challenge)">
+                        <ion-col col-12>{{challenge.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row>
+                        <ion-col col-12>
+                            <button ion-button [block]="true" (click)="register(challenge)">Register</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+
+            </ion-card>
+
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="currentSelection!='Available' && challengeUserList!=null">
+        <ion-col col-12 col-md-6 col-lg-6 *ngFor="let challengeUser of challengeUserList">
+            <ion-card class="text-center">
+                <ion-card-header (click)="clickChallenge(challengeUser.challenge, challengeUser)"><h1>
+                    {{challengeUser.challenge.descripcion}}</h1></ion-card-header>
+                <ion-card-content>
+                    <ion-row (click)="clickChallenge(challengeUser.challenge, challengeUser)">
+                        <ion-col col-12>{{challengeUser.challenge.contenido}}</ion-col>
+                    </ion-row>
+
+
+                    <ion-row *ngIf="currentSelection=='Registered'">
+                        <ion-col col-12>
+                            <button ion-button [block]="true"
+                                    (click)="complete(challengeUser.id, challengeUser.challenge)">
+                                Complete
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

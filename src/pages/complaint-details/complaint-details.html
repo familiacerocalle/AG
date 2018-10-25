@@ -1,0 +1,75 @@
+<!--
+  Generated template for the ComplaintDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Complaint Details
+            <button ion-button class="float-right" (click)="editComplaint()">Edit</button>
+        </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+        <ion-card-content>
+            <div>
+                <span *ngIf="complaint.created_at!=null">{{complaint.created_at}}</span>
+                <span *ngIf="complaint.created_at==null">Now</span>
+                <span class="float-right" *ngIf="complaint.complaintType!=null">{{complaint.complaintType.name}}</span>
+            </div>
+            <hr>
+            {{complaint.descripcion}}
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="complaint.id!=null && complaint.attachments!=null">
+        <hr>
+        <hr>
+        <h4>Attachments</h4>
+        <ion-card *ngFor="let attachment of complaint.attachments">
+            <img src="{{attachment.file.url}}">
+            <img src="{{attachment.file.url}}"
+                 *ngIf="attachment.file && attachment.file.url && ['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1]) >= 0">
+            <video *ngIf="attachment && attachment.file && attachment.file.url && 'mp4' == attachment.file.url.split('.')[1]"
+                   controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                <source src="{{attachment.file.url}}" type="video/mp4"/>
+            </video>
+        </ion-card>
+        <button ion-button (click)="addAttachment()">Add Attachment</button>
+    </div>
+    <hr>
+    <hr>
+    <div *ngIf="complaint.complaintfiles!=null">
+        <h4>Complaint Files</h4>
+        <button class="float-right" color="secondary" ion-button (click)="clickComplaintFile(null)">Add new Complaint
+            file
+        </button>
+        <ion-card *ngFor="let complaintFile of complaint.complaintfiles" (click)="clickComplaintFile(complaintFile)">
+            <ion-card-content>
+                {{complaintFile.created_at}}<br>
+                {{complaintFile.descripcion}}<br>
+                <img *ngIf="complaintFile.archivo!=null
+            && complaintFile.archivo!=null
+            && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1]) >= 0"
+                     src="{{complaintFile.archivo.url}}">
+                <video *ngIf="complaintFile.archivo!=null
+            && complaintFile.archivo!=null
+            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[1]" controls="controls"
+                       preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                    <source src="{{complaintFile.archivo.url}}" type="video/mp4"/>
+                </video>
+            </ion-card-content>
+        </ion-card>
+
+    </div>
+    <input #input_file_id type="file"
+           (change)="onChangeAttachment($event)" style="display: none"/>
+
+    <button ion-button color="danger" [block]="true" (click)="deleteComplaint()">Delete complaint</button>
+</ion-content>

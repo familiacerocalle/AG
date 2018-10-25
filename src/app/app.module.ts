@@ -1,78 +1,84 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-import { IonicStorageModule, Storage } from '@ionic/storage';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import {BrowserModule} from '@angular/platform-browser';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
 
-import { Items } from '../mocks/providers/items';
-import { Settings, User, Api } from '../providers';
-import { CourseUsers } from '../providers';
-import { ChallengeUsers } from '../providers';
-import { ComplaintUsers } from '../providers';
-import { ComplaintFiles } from '../providers';
-import { MyApp } from './app.component';
-
-// The translate loader needs to know where to load i18n files
-// in Ionic's static asset pipeline.
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
-  return new Settings(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
-  });
-}
+import {MyApp} from './app.component';
+import {ComplaintDetailsPage} from "../pages/complaint-details/complaint-details";
+import {ComplaintListPage} from "../pages/complaint-list/complaint-list";
+import {CourseDetailsPage} from "../pages/course-details/course-details";
+import {CourceListPage} from "../pages/cource-list/cource-list";
+import {ChallengeDetailsPage} from "../pages/challenge-details/challenge-details";
+import {ChallengeListPage} from "../pages/challenge-list/challenge-list";
+import {LoginPage} from "../pages/login/login";
+import {SignupPage} from "../pages/signup/signup";
+import {ShWeb} from "../providers/sh-web/sh_web";
+import {HttpModule} from "@angular/http";
+import {IonicStorageModule} from "@ionic/storage";
+import {HttpClientModule} from "@angular/common/http";
+import {ShDbStorage} from "../providers/sh-web/sh_db";
+import {ProfilePage} from "../pages/profile/profile";
+import {AttachmentComponentPage} from "../pages/attachment-component/attachment-component";
+import {AttachmentPopoverPage} from "../pages/attachment-popover/attachment-popover";
+import {Camera} from '@ionic-native/camera';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {ComplaintEditPage} from "../pages/complaint-edit/complaint-edit";
+import {ComplaintFileEditPage} from "../pages/complaint-file-edit/complaint-file-edit";
 
 @NgModule({
-  declarations: [
-    MyApp
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp
-  ],
-  providers: [
-    Api,
-    Items,
-    User,
-    Camera,
-    SplashScreen,
-    StatusBar,
-    { provide: Settings, useFactory: provideSettings, deps: [Storage] },
-    // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    CourseUsers,
-    ChallengeUsers,
-    ComplaintUsers,
-    ComplaintFiles
-  ]
+    declarations: [
+        MyApp,
+        ComplaintDetailsPage,
+        ComplaintListPage,
+        CourseDetailsPage,
+        CourceListPage,
+        ChallengeDetailsPage,
+        ChallengeListPage,
+        LoginPage,
+        SignupPage,
+        ProfilePage,
+        AttachmentComponentPage,
+        AttachmentPopoverPage,
+        ComplaintEditPage,
+        ComplaintFileEditPage
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        HttpClientModule,
+        PdfViewerModule,
+        IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot({
+            name: 'gryphus',
+            driverOrder: ['sqlite', 'indexeddb', 'websql']
+        })
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        ComplaintDetailsPage,
+        ComplaintListPage,
+        CourseDetailsPage,
+        CourceListPage,
+        ChallengeDetailsPage,
+        ChallengeListPage,
+        LoginPage,
+        SignupPage,
+        ProfilePage,
+        AttachmentComponentPage,
+        AttachmentPopoverPage,
+        ComplaintEditPage,
+        ComplaintFileEditPage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        ShWeb,
+        Camera,
+        ShDbStorage,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
 })
-export class AppModule { }
+export class AppModule {
+}

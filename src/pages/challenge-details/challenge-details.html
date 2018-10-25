@@ -1,0 +1,55 @@
+<!--
+  Generated template for the ChallengeDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Challenge Details</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+        <ion-card-content>
+            Description<br>
+            <div class="font-1-5">{{challenge.descripcion}}</div>
+        </ion-card-content>
+        <ion-card-content>
+            Challenge Level<br>
+            <div class="font-1-5">{{challenge.challengelevel}}</div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="challenge.challenge_user!=null">
+        <ion-card-content>
+            <div *ngIf="challenge.challenge_user.fechainicio!=null">
+                Start date<br>
+                <div class="font-1-5">{{challenge.challenge_user.fechainicio | date:'medium'}}</div>
+            </div>
+            <div *ngIf="challenge.challenge_user.fechafin!=null">End date<br>
+                <div class="font-1-5">{{challenge.challenge_user.fechafin | date:'medium'}}</div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="challenge.attachments!=null">
+        <ion-card *ngFor="let attachment of challenge.attachments">
+            <img src="{{attachment.file.url}}" *ngIf="['png', 'jpeg'].indexOf(attachment.file.url.split('.')[1]) >= 0">
+            <video *ngIf="'mp4' == attachment.file.url.split('.')[1]" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+              <source src="{{attachment.file.url}}" type="video/mp4" />
+            </video>
+        </ion-card>
+    </div>
+
+    <button ion-button [block]="true" (click)="register(challenge)" *ngIf="challengeStatus=='Available'">Register
+    </button>
+    <button ion-button [block]="true" (click)="complete(challenge.challenge_user.id)"
+            *ngIf="challenge.challenge_user!=null && challengeStatus=='Registered'">Complete
+    </button>
+</ion-content>

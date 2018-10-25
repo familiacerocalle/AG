@@ -1,62 +1,81 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {NavController, NavParams} from "ionic-angular";
+import {LoginPage} from "../login/login";
+import {User} from "../../providers/models/User";
+import {ShToast} from "../../providers/utils/ShToast";
+import {ShDbStorage} from "../../providers/sh-web/sh_db";
+import {ShWeb} from "../../providers/sh-web/sh_web";
+import {CourceListPage} from "../cource-list/cource-list";
+import {StaticConstantsService} from "../../providers/sh-web/StaticConstants";
 
-import { User } from '../../providers';
-import { MainPage } from '../';
-import { PrincipalPage } from '../';
-
-@IonicPage()
+/**
+ * Generated class for the Sign up Page page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html'
+    selector: 'page-signup',
+    templateUrl: 'signup.html',
+    providers: [ShDbStorage, ShToast, ShWeb]
 })
 export class SignupPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  /*
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'testtest'
-  };
-*/ 
+    user: User = new User;
+    confirmPassword: string = "";
+    showPassword: boolean;
 
-  account: {user: { email: string, password: string } } = {
-    user: {
-      email: 'test@example.com',
-      password: 'testtest'
+    constructor(public navCtrl: NavController, public navParams: NavParams, private shToast: ShToast, private shWeb: ShWeb, private shDb: ShDbStorage) {
+        this.initializeUser();
     }
-  };
-  
-  // Our translated text strings
-  private signupErrorString: string;
 
-  constructor(public navCtrl: NavController,
-    public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    initializeUser() {
+        this.user = new User;
+    }
 
-    this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
-      this.signupErrorString = value;
-    })
-  }
+    clickedOnVerificationButton() {
+        if (this.validation()) {
+            this.signUp();
+        }
+    }
 
-  doSignup() {
-    // Attempt to login in through our User service
-    this.user.signup(this.account).subscribe((resp) => {
-      //this.navCtrl.push(MainPage);
-      this.navCtrl.push(PrincipalPage, {user: resp});
-    }, (err) => {
-      //this.navCtrl.push(MainPage);
-      this.navCtrl.push(SignupPage);
-      // Unable to sign up
-      let toast = this.toastCtrl.create({
-        message: this.signupErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
-    });
-  }
+    signUp() {
+        let request: any = {user: User};
+        request.user = this.user;
+        this.shWeb.post("users/signup", request).then((user: User) => {
+            this.user = user;
+            this.shDb.shPost("user", user).then(() => {
+                this.shDb.shPost("auth", this.user.token).then(() => {
+                    console.log("user : " + JSON.stringify(user));
+                    StaticConstantsService.auth = this.user.token;
+                    this.shToast.presentToast("Welcome to Gryphus!!");
+                    this.navCtrl.setRoot(CourceListPage, {user: user});
+                });
+            });
+
+        });
+    }
+
+    showPasswordClicked() {
+        this.showPassword = !this.showPassword;
+    }
+
+    clickToLogin() {
+        this.navCtrl.setRoot(LoginPage);
+    }
+
+    validation(): boolean {
+        if (!this.shToast.validateNull(this.user.nombre, "Name should not be empty!")) {
+            return false;
+        }
+        if (!this.shToast.validateNull(this.user.email, "email should not be empty!")) {
+            return false;
+        }
+        if (!this.shToast.validateNull(this.user.password, "Password should not be empty!")) {
+            return false;
+        }
+        if (!this.shToast.validateNull(this.confirmPassword, "Confirm Password should not be empty!")) {
+            return false;
+        }
+        return this.shToast.validateMatch(this.confirmPassword, this.user.password, "Entered confirm password doesn't match with password");
+    }
 }
