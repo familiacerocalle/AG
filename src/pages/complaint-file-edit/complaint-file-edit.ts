@@ -32,18 +32,10 @@ export class ComplaintFileEditPage {
         this.user = this.navParams.get("user");
         if (this.navParams.get("complaintFile") != null) {
             this.complaintFile = this.navParams.get("complaintFile");
-            this.getComplaintFile();
         }
         if (this.complaintFile.attachments == null) {
             this.complaintFile.attachments = [];
         }
-    }
-
-    getComplaintFile() {
-        this.shWeb.get("complaintsfiles/" + this.complaintFile.id).then((data: ComplaintFile) => {
-            this.complaintFile.attachments = data.attachments;
-            this.complaintFile.descripcion = data.descripcion;
-        });
     }
 
     saveEditComplaintFile() {
@@ -60,12 +52,11 @@ export class ComplaintFileEditPage {
             request.complaintfile = this.complaintFile;
             this.shWeb.put("complaintfiles/" + this.complaintFile.id, {complaintfile: this.complaintFile}).then((data: ComplaintFile) => {
                 ShUtils.saveUnique(this.complaint.complaintfiles, data);
-                this.complaint.complaintfiles = data;
-                for(let complaintfile of this.complaint.complaintfiles) {
-                  if(complaintfile.id == data.id){
-                    complaintfile.descripcion = data.descripcion;
-                    complaintfile.archivo.url = data.archivo.url;
-                  }
+                for (let complaintfile of this.complaint.complaintfiles) {
+                    if (complaintfile.id == data.id) {
+                        complaintfile.descripcion = data.descripcion;
+                        complaintfile.archivo.url = data.archivo.url;
+                    }
                 }
 
                 this.navCtrl.pop();
@@ -106,23 +97,12 @@ export class ComplaintFileEditPage {
         this.complaintFile.user_id = this.user.id;
         request.complaintfile = this.complaintFile;
         request.complaintfile.archivo = base64;
-        if (this.complaintFile.id == null) {
-            this.shWeb.post("complaintfiles/", request).then((data: ComplaintFile) => {
-                ShUtils.saveUnique(this.complaint.complaintfiles, data);
-                this.complaintFile = data;
-                this.navCtrl.pop();
-            });
-        } else {
-            this.shWeb.put("complaintfiles/" + this.complaintFile.id, request).then((data: ComplaintFile) => {
-                ShUtils.saveUnique(this.complaint.complaintfiles, data);
-                for(let complaintfile of this.complaint.complaintfiles) {
-                  if(complaintfile.id == data.id){
-                    complaintfile = data;
-                  }
-                }
-                this.navCtrl.pop();
-            });
-        }
+
+        this.shWeb.put("complaintfiles/" + this.complaintFile.id, request).then((data: ComplaintFile) => {
+            console.log("attachemnt respone : " + JSON.stringify(data));
+            this.complaintFile.archivo = data.archivo;
+        });
+
     }
 
     onChangeAttachment($event: any) {

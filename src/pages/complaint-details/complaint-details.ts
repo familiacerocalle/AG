@@ -32,7 +32,6 @@ export class ComplaintDetailsPage {
         this.user = this.navParams.get("user");
         this.complaintList = this.navParams.get("complaintList");
         this.complaintTypeList = this.navParams.get("complaintTypeList");
-
         if (this.navParams.get("complaint") != null) {
             this.complaint = this.navParams.get("complaint");
         } else {

@@ -54,12 +54,12 @@
                 {{complaintFile.created_at}}<br>
                 {{complaintFile.descripcion}}<br>
                 <img *ngIf="complaintFile.archivo!=null
-            && complaintFile.archivo!=null
-            && complaintFile.archivo.url!=null && ['png', 'jpeg'].indexOf(complaintFile.archivo.url.split('.')[1]) >= 0"
+            && complaintFile.archivo.url!=null && ['png', 'jpeg', 'jpg'].indexOf(complaintFile.archivo.url.split('.')[complaintFile.archivo.url.split('.').length-1]) >= 0"
                      src="{{complaintFile.archivo.url}}">
                 <video *ngIf="complaintFile.archivo!=null
             && complaintFile.archivo!=null
-            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[1]" controls="controls"
+            && complaintFile.archivo.url!=null && 'mp4' == complaintFile.archivo.url.split('.')[complaintFile.archivo.url.split('.').length-1]"
+                       controls="controls"
                        preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
                     <source src="{{complaintFile.archivo.url}}" type="video/mp4"/>
                 </video>
