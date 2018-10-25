@@ -42,16 +42,18 @@
         <ion-input [readonly]="!editable" [(ngModel)]="user.segundoApellido"></ion-input>
     </ion-item>
 
-    <ion-item>
-        <ion-label floating>Joining date</ion-label>
-        <ion-input [readonly]="!editable" [(ngModel)]="user.created_at"></ion-input>
-    </ion-item>
-
-    <ion-item>
+    <ion-item *ngIf="!editable">
         <ion-label floating>Language</ion-label>
         <ion-input [readonly]="!editable" [(ngModel)]="user.locale"></ion-input>
     </ion-item>
 
+    <ion-item *ngIf="editable">
+      <ion-label>Language</ion-label>
+      <ion-select [(ngModel)]="user.locale">
+        <ion-option value="en">English</ion-option>
+        <ion-option value="es">Spanish</ion-option>
+      </ion-select>
+    </ion-item>
 
     <button ion-button *ngIf="editable==false" (click)="edit()" color="primary">Edit</button>
     <button ion-button *ngIf="editable==true" (click)="update()" color="secondary">Update</button>

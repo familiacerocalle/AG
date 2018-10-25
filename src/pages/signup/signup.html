@@ -31,9 +31,6 @@
 
         <ion-row>
 
-            <ion-col col-3 class="text-center">
-                <ion-icon name="eye" class="dark-color font-2" (click)="showPasswordClicked()"></ion-icon>
-            </ion-col>
             <ion-col col-9>
                 <ion-input *ngIf="!showPassword" placeholder="Password"
                            [(ngModel)]="user.password"
@@ -44,9 +41,17 @@
                            [(ngModel)]="user.password"
                            type="text"></ion-input>
             </ion-col>
+            <ion-col col-3 class="text-center">
+                <ion-icon name="eye" class="dark-color font-2" (click)="showPasswordClicked()"></ion-icon>
+            </ion-col>
         </ion-row>
 
         <ion-row>
+
+            <ion-col col-9>
+                <ion-input [(ngModel)]="confirmPassword" placeholder="Confirm password"
+                           type="password"></ion-input>
+            </ion-col>
             <ion-col col-3 class="text-center font-2">
                 <ion-icon *ngIf="confirmPassword!=null && user.password==confirmPassword"
                           color="secondary"
@@ -54,11 +59,6 @@
                 <ion-icon *ngIf="confirmPassword==null && user.password!=confirmPassword"
                           color="light-color"
                           name="checkmark"></ion-icon>
-            </ion-col>
-
-            <ion-col col-9>
-                <ion-input [(ngModel)]="confirmPassword" placeholder="Confirm password"
-                           type="password"></ion-input>
             </ion-col>
         </ion-row>
         <br><br>
